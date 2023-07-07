@@ -4,6 +4,7 @@
   html {
     @apply text-neutral-800;
   }
+
   html.dark {
     @apply text-neutral-50;
     @apply bg-neutral-800;
@@ -12,6 +13,25 @@
 
 @tailwind components;
 @tailwind utilities;
+
+@layer utilities {
+
+  /* @variants responsive { */
+  /* Hide scrollbar for Chrome, Safari and Opera */
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* Hide scrollbar for IE, Edge and Firefox */
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    /* IE and Edge */
+    scrollbar-width: none;
+    /* Firefox */
+  }
+
+  /* } */
+}
 
 /* :root {
   --foreground-rgb: 0, 0, 0;
@@ -37,3 +57,12 @@ body {
     rgb(var(--background-start-rgb));
 } */
 
+a {
+  user-select: none;
+}
+
+a:hover,
+a *:hover {
+  /* color: rgb(158, 202, 238); */
+  color: rgb(14 165 233);
+}

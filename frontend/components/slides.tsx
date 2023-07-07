@@ -11,11 +11,11 @@ const Slides = () => {
         initTE({ Carousel });
     }, []);
 
-    const draw = (ctx: CanvasRenderingContext2D, frameCount: number, ratio:number) => {
+    const draw = (ctx: CanvasRenderingContext2D, frameCount: number, ratio: number) => {
         ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height)
         ctx.fillStyle = '#9ecaee'
         ctx.beginPath()
-        ctx.arc(50*ratio, 150*ratio, 20 * Math.sin(frameCount * 0.05) ** 2, 0, 2 * Math.PI)
+        ctx.arc(50 * ratio, 150 * ratio, 20 * Math.sin(frameCount * 0.05) ** 2, 0, 2 * Math.PI)
         ctx.fill()
     }
 
@@ -66,8 +66,8 @@ const Slides = () => {
                         <img
                             src="azure.png"
                             className="block w-full -z-30 absolute top-0 left-0 opacity-40"
-                            alt="..." />
-                            <img src="map_nz.png" className="block w-full z-0" />
+                            alt="..." onContextMenu={event => event.preventDefault()} />
+                        <img src="map_nz.png" className="block w-full z-0" onContextMenu={event => event.preventDefault()} />
                         <div
                             className="absolute inset-x-[15%] bottom-5 hidden py-5 text-center text-white md:block">
                             <h5 className="text-xl">First slide label</h5>
