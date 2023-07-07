@@ -66,3 +66,7 @@ a *:hover {
   /* color: rgb(158, 202, 238); */
   color: rgb(14 165 233);
 }
+
+img {
+  pointer-events: none;
+}
