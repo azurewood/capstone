@@ -13,9 +13,9 @@ const Slides = () => {
 
     const draw = (ctx: CanvasRenderingContext2D, frameCount: number, ratio:number) => {
         ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height)
-        ctx.fillStyle = '#000000'
+        ctx.fillStyle = '#9ecaee'
         ctx.beginPath()
-        ctx.arc(50*ratio, 650*ratio, 20 * Math.sin(frameCount * 0.05) ** 2, 0, 2 * Math.PI)
+        ctx.arc(50*ratio, 150*ratio, 20 * Math.sin(frameCount * 0.05) ** 2, 0, 2 * Math.PI)
         ctx.fill()
     }
 

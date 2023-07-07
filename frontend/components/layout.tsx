@@ -6,7 +6,7 @@ const Navbar = dynamic(() => import("@/components/navbar"), { ssr: false });
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   return (
-    <div className="relative">
+    <div className="relative overflow-hidden">
       <div>
         <Navbar />
       </div>

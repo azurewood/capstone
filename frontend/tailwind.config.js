@@ -27,6 +27,9 @@ module.exports = {
       body: ["Roboto", "sans-serif"],
       mono: ["ui-monospace", "monospace"],
     },
+    screens: {
+      'xs': '512px',
+    },
     extend: {
       colors:{
         'azure':'#9ecaee',

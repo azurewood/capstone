@@ -1,4 +1,4 @@
-"use client"
+// "use client"
 
 import './globals.css'
 import Head from 'next/head'
@@ -27,14 +27,14 @@ export default function RootLayout({
         <meta name="description" content={metadata.description} />
       </Head>
       {/* <body classNameName={inter.classNameName}>{children}</body> */}
-      <style jsx global>{`
+      {/* <style jsx global>{`
         html {
           font-family: ${roboto.style.fontFamily};
         }
-      `}</style>
-      <body>
+      `}</style> */}
+      <body className={roboto.className+" max-w-lg mx-auto"}>
         <noscript>You need to enable JavaScript to run this app.</noscript>
-        <div className='max-w-lg mx-auto overflow-y-scroll'>
+        <div className='overflow-hidden'>
           {children}
         </div>
 

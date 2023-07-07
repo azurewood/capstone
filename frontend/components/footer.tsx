@@ -170,11 +170,12 @@ const Footer = () => {
 
                 {/* <!--Copyright section--> */}
                 <div className="bg-neutral-200 p-6 text-center dark:bg-neutral-700">
-                    <span>© 2023 Copyright:</span>
+                    <span>© 2023 Weather NZ </span>
                     <a
-                        className="font-semibold text-neutral-600 dark:text-neutral-400"
+                        className="text-xs font-semibold text-neutral-600 dark:text-neutral-400"
                         href="https://tailwind-elements.com/"
-                    >Tailwind Elements</a>
+                        target="_blank"
+                    ><em>Powered by Tailwind Elements</em></a>
                 </div>
             </footer>
         </>
