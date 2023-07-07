@@ -19,6 +19,13 @@ const Slides = () => {
         ctx.fill()
     }
 
+    const handleContextMenu = (event: any) => {
+        event.preventDefault();
+        // event.stopPropagation(); // not necessary in my case, could leave in case stopImmediateProp isn't available? 
+        event.nativeEvent?.stopImmediatePropagation();
+        return false;
+    }
+
     return (
         <>
             <div
@@ -66,8 +73,8 @@ const Slides = () => {
                         <img
                             src="azure.png"
                             className="block w-full -z-30 absolute top-0 left-0 opacity-40"
-                            alt="..." onContextMenu={event => event.preventDefault()} />
-                        <img src="map_nz.png" className="block w-full z-0" onContextMenu={event => event.preventDefault()} />
+                            alt="..." onContextMenu={handleContextMenu} />
+                        <img src="map_nz.png" className="block w-full z-0" onContextMenu={handleContextMenu} />
                         <div
                             className="absolute inset-x-[15%] bottom-5 hidden py-5 text-center text-white md:block">
                             <h5 className="text-xl">First slide label</h5>

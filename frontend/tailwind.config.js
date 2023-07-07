@@ -28,7 +28,7 @@ module.exports = {
       mono: ["ui-monospace", "monospace"],
     },
     screens: {
-      'xs': '512px',
+      'mob': '512px',
     },
     extend: {
       colors:{
