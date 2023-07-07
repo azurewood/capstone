@@ -21,7 +21,7 @@ const Slides = () => {
 
     const handleContextMenu = (event: any) => {
         event.preventDefault();
-        // event.stopPropagation(); // not necessary in my case, could leave in case stopImmediateProp isn't available? 
+        event.stopPropagation(); // not necessary in my case, could leave in case stopImmediateProp isn't available? 
         event.nativeEvent?.stopImmediatePropagation();
         return false;
     }
