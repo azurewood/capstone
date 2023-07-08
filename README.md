@@ -3,7 +3,7 @@
 ## Introduction
 This project is intended to present at IOD/AUT computer software engineering course. It utilizes contemporary web application development technologies to demonstrate knowledge learnt from the course. The main of this project should be responsive, eye appealing and full featured to the end users/stakeholders. 
 
-In Otago region and across all New Zealand, a lot of outdoor workers are battling with harsh weather conditions, espacially in winter season. The ability of easily getting access to weather information is a daily routine for every forecast provider. However, many free online resources are not free or not intuitive to use, so we are obsessed with creating a weather forecast service for New Zealand users by using the best online resources.
+In Otago region and across all New Zealand, a lot of outdoor workers are battling with harsh weather conditions, espacially in winter season. The ability of easily getting access to weather information is a daily routine for stakeholders including service providers. However, many free online resources are not free or not intuitive to use, so we are obsessed with creating a weather forecast service for New Zealand users by using the best online resources.
 
 ## Objectives
 - Express / Fastify backend to provide data CRUD operations.
@@ -42,12 +42,12 @@ Admin Managment               :         des4, after des3, 5d
 ```mermaid
 flowchart TD
     A[The User] -->|go website| B(explore Homepage)
-    B --> C{normal user}
+    B --> C{The User}
     C -->D[add cities]
     C -->E[remove cities]
     C -->F[check weather]
 
-    B --> H{admin}
+    B --> H{Admin User}
     H -->I[login/logout]
     H -->J[add locations]
     H -->K[delete locations]

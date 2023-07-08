@@ -6,6 +6,7 @@ import Head from 'next/head'
 import "tw-elements/dist/css/tw-elements.min.css";
 import { Roboto } from "next/font/google";
 import { Metadata } from 'next'
+import { DataContextProvider } from './dataContext';
 
 const roboto = Roboto({ weight: "400", subsets: ["latin"] });
 
@@ -33,10 +34,12 @@ export default function RootLayout({
           font-family: ${roboto.style.fontFamily};
         }
       `}</style> */}
-      <body className={roboto.className+" max-w-lg mx-auto overflow-y-scroll no-scrollbar"}>
+      <body className={roboto.className + " max-w-lg mx-auto overflow-y-scroll no-scrollbar"}>
         <noscript>You need to enable JavaScript to run this app.</noscript>
         <div className='overflow-hidden'>
-          {children}
+          <DataContextProvider>
+            {children}
+          </DataContextProvider>
         </div>
 
       </body>

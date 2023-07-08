@@ -3,20 +3,40 @@ import {
     Carousel,
     initTE
 } from "tw-elements";
-import { useEffect } from "react";
+import { useEffect, useContext, useState } from "react";
 import Canvas from "./canvas";
+import { __state, get_data } from '@/app/dataHub';
+import { DataContext } from "@/app/dataContext";
+import Precipitation from "./graphics/precipitation";
+import WeatherMap from "./graphics/weatherMap";
 
 const Slides = () => {
+    const { state, setState, data, setData } = useContext(DataContext);
+
     useEffect(() => {
+        setState(0);
         initTE({ Carousel });
+        get_data().then(data => {
+            // console.log(data.length,state);
+            setData(data);
+        }).catch(err => {
+            console.log("error:", err.message);
+            setState(-2);
+        })
+            .finally(() => {
+                // console.log("end");
+                setState(3);
+            });
+
     }, []);
 
-    const draw = (ctx: CanvasRenderingContext2D, frameCount: number, ratio: number) => {
-        ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height)
-        ctx.fillStyle = '#9ecaee'
-        ctx.beginPath()
-        ctx.arc(50 * ratio, 150 * ratio, 20 * Math.sin(frameCount * 0.05) ** 2, 0, 2 * Math.PI)
-        ctx.fill()
+    const draw = (weatherMap: WeatherMap, frameCount: number, ratio: number) => {
+        // console.log(ratio,ctx.canvas.height);
+        weatherMap.ctx.clearRect(0, 0, weatherMap.ctx.canvas.width, weatherMap.ctx.canvas.height)
+        weatherMap.ctx.fillStyle = '#9ecaee'
+        weatherMap.ctx.beginPath()
+        weatherMap.ctx.arc(50 * ratio, 150 * ratio, 20 * Math.sin(frameCount * 0.05) ** 2, 0, 2 * Math.PI)
+        weatherMap.ctx.fill()
     }
 
     const handleContextMenu = (event: any) => {
@@ -31,7 +51,7 @@ const Slides = () => {
             <div
                 id="carouselMaps"
                 className="relative"
-                data-te-interval="50000"
+                data-te-interval="150000"
                 data-te-carousel-init
                 data-te-carousel-slide>
 
@@ -64,51 +84,70 @@ const Slides = () => {
                 {/* <!--Carousel items--> */}
                 <div
                     className="relative w-full overflow-hidden after:clear-both after:block after:content-['']">
-                    {/* <!--First item--> */}
-                    <div
-                        className="relative float-left -mr-[100%] w-full transition-transform duration-[600ms] ease-in-out motion-reduce:transition-none backface-hidden"
-                        data-te-carousel-active
-                        data-te-carousel-item >
-                        <Canvas draw={draw} name="test" width="512" height="723" className="absolute top-0 left-0 -z-10" />
-                        <img
-                            src="azure.png"
-                            className="block w-full -z-30 absolute top-0 left-0 opacity-40"
-                            alt="..." onContextMenu={handleContextMenu} />
-                        <img src="map_nz.png" className="block w-full z-0" onContextMenu={handleContextMenu} />
+                    {state < 3 ?
                         <div
-                            className="absolute inset-x-[15%] bottom-5 hidden py-5 text-center text-white md:block">
-                            <h5 className="text-xl">First slide label</h5>
-                            <p>Some representative placeholder content for the first slide.</p>
+                            className="relative float-left -mr-[100%] w-full transition-transform duration-[600ms] ease-in-out motion-reduce:transition-none backface-hidden"
+                            data-te-carousel-active
+                            data-te-carousel-item >
+                            <Canvas draw={draw} name="test" width="512" height="723" className="absolute top-0 left-0 -z-10" />
+                            <img
+                                src="azure.png"
+                                className="block w-full -z-30 absolute top-0 left-0 opacity-40"
+                                alt="..." onContextMenu={handleContextMenu} />
+                            <img src="map_nz.png" className="block w-full z-0" onContextMenu={handleContextMenu} />
+                            <div
+                                className="absolute inset-x-[15%] bottom-5 hidden py-5 text-center text-white md:block">
+                                <h5 className="text-xl">First slide label</h5>
+                                <p>Some representative placeholder content for the first slide.</p>
+                            </div>
                         </div>
-                    </div>
-                    {/* <!--Second item--> */}
-                    <div
-                        className="relative float-left -mr-[100%] hidden w-full transition-transform duration-[600ms] ease-in-out motion-reduce:transition-none backface-hidden"
-                        data-te-carousel-item >
-                        <img
-                            src="azure.png"
-                            className="block w-full -z-10"
-                            alt="..." />
-                        <div
-                            className="absolute inset-x-[15%] bottom-5 hidden py-5 text-center text-white md:block">
-                            <h5 className="text-xl">Second slide label</h5>
-                            <p>Some representative placeholder content for the second slide.</p>
-                        </div>
-                    </div>
-                    {/* <!--Third item--> */}
-                    <div
-                        className="relative float-left -mr-[100%] hidden w-full transition-transform duration-[600ms] ease-in-out motion-reduce:transition-none backface-hidden"
-                        data-te-carousel-item >
-                        <img
-                            src="azure.png"
-                            className="block w-full"
-                            alt="..." />
-                        <div
-                            className="absolute inset-x-[15%] bottom-5 hidden py-5 text-center text-white md:block">
-                            <h5 className="text-xl">Third slide label</h5>
-                            <p>Some representative placeholder content for the third slide.</p>
-                        </div>
-                    </div>
+                        : <>
+                            {/* <!--First item--> */}
+                            <div
+                                className="relative float-left -mr-[100%] w-full transition-transform duration-[600ms] ease-in-out motion-reduce:transition-none backface-hidden"
+                                data-te-carousel-active
+                                data-te-carousel-item >
+                                <Precipitation name="precipitation" width="512" height="723" className="absolute top-0 left-0 -z-10" />
+                                <img
+                                    src="azure.png"
+                                    className="block w-full -z-30 absolute top-0 left-0 opacity-40"
+                                    alt="..." onContextMenu={handleContextMenu} />
+                                <img src="map_nz.png" className="block w-full z-0" onContextMenu={handleContextMenu} />
+                                <div
+                                    className="absolute inset-x-[15%] bottom-5 hidden py-5 text-center text-white md:block">
+                                    <h5 className="text-xl">First slide label</h5>
+                                    <p>Some representative placeholder content for the first slide.</p>
+                                </div>
+                            </div>
+                            {/* <!--Second item--> */}
+                            <div
+                                className="relative float-left -mr-[100%] hidden w-full transition-transform duration-[600ms] ease-in-out motion-reduce:transition-none backface-hidden"
+                                data-te-carousel-item >
+                                <img
+                                    src="azure.png"
+                                    className="block w-full -z-10"
+                                    alt="..." />
+                                <div
+                                    className="absolute inset-x-[15%] bottom-5 hidden py-5 text-center text-white md:block">
+                                    <h5 className="text-xl">Second slide label</h5>
+                                    <p>Some representative placeholder content for the second slide.</p>
+                                </div>
+                            </div>
+                            {/* <!--Third item--> */}
+                            <div
+                                className="relative float-left -mr-[100%] hidden w-full transition-transform duration-[600ms] ease-in-out motion-reduce:transition-none backface-hidden"
+                                data-te-carousel-item >
+                                <img
+                                    src="azure.png"
+                                    className="block w-full"
+                                    alt="..." />
+                                <div
+                                    className="absolute inset-x-[15%] bottom-5 hidden py-5 text-center text-white md:block">
+                                    <h5 className="text-xl">Third slide label</h5>
+                                    <p>Some representative placeholder content for the third slide.</p>
+                                </div>
+                            </div>
+                        </>}
                 </div>
 
                 {/* <!--Carousel controls - prev item--> */}
