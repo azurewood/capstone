@@ -4,7 +4,7 @@ import { DataContext } from "@/app/dataContext";
 import WeatherMap from './weatherMap';
 
 const Precipitation = (props: any) => {
-    const { state, setState, data } = useContext(DataContext);
+    const { state, setState, data, setBusy } = useContext(DataContext);
 
     const delay = (ms: number) => new Promise(
         resolve => setTimeout(resolve, ms)
@@ -19,6 +19,8 @@ const Precipitation = (props: any) => {
         //     item.y *= ratio;
         //     return item;
         // }), 512 * ratio, 723 * ratio);
+        setState(2);
+        setBusy(1);
 
         weatherMap.setPoints(data.map((a) => {
             const b = { ...a };
@@ -26,8 +28,11 @@ const Precipitation = (props: any) => {
             b.y *= ratio;
             return b;
         }), 512 * ratio, 723 * ratio);
-        weatherMap.drawLow(frameCount, ratio);
-        await delay(5000);
+        weatherMap.drawLow(frameCount, ratio).then(([state,busy])=>{
+            setState(state);
+            setBusy(busy);
+        });
+        // await delay(5000);
     }
 
     // const { draw, ...rest } = props
