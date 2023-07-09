@@ -18,13 +18,17 @@ export interface DataContextType {
   setState: Dispatch<SetStateAction<number>>;
   data: DataType[];
   setData: Dispatch<SetStateAction<DataType[]>>;
+  busy: number,
+  setBusy: Dispatch<SetStateAction<number>>;
 }
 
 const DataContext = createContext<DataContextType>({
-  state: 0,  // 0: connecting; 1: connected; 2: fetching; 3: done; -1: error; -2: uncompleted error;
+  state: 0,  // 0: connecting; 1: fetching; 2: calculating; 3: done; -1: error; -2: uncompleted error;
   setState: () => 0,
   data: [],
-  setData: () => []
+  setData: () => [],
+  busy: 0,  // 0: free; 1: canvas1 busy; 2: canvas2 busy; 3: canvas3 busy;
+  setBusy: () => 0,
 });
 
 const DataContextProvider = ({ children }: {
@@ -32,10 +36,11 @@ const DataContextProvider = ({ children }: {
 }) => {
   const [state, setState] = useState<number>(0);
   const [data, setData] = useState<DataType[]>([]);
+  const [busy, setBusy] = useState<number>(0);
 
 
   return (
-    <DataContext.Provider value={{ state, setState, data, setData }}>
+    <DataContext.Provider value={{ state, setState, data, setData, busy, setBusy }}>
       {children}
     </DataContext.Provider>
   );

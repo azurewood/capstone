@@ -274,229 +274,243 @@ WeatherMap.prototype.setPoints = function (arr, width, height) {
     this.setConvexhullPolygon(this.points);
 };
 
-let _frame = 0;
-let _ratio;
 let _temp_img = [];
 WeatherMap.prototype.drawLow = async function (frame, ratio) {//(limit, res, clean, callback, frame = 0) {
-
-    const limit = 5, res = 3, clean = false, callback = null;
-    //console.log(_max_temp, _min_temp, _max_wind, _min_wind)
     // return new Promise((resolve, reject) => {
-    let self = this;
-    if (!(self instanceof WeatherMap))
-        self = __context;
-    //console.log(self);
-    // console.log(_temp_img.length, _frame);
-    if (_temp_img.length < 7) {
-    }
-    else {
-        //let frame = 0;
-        if (frame < 7 && _ratio === ratio) {
-            //frame = _frame;
-            self.ctx.clearRect(0, 0, self.size.width, self.size.height);
-            // self.ctx.scale(ratio, ratio);
-            try {
-                self.ctx.putImageData(_temp_img[frame], 0, 0);
-            } catch (err) {
-                console.log("error:", err.message);
-                while (_temp_img.length > 0) {
-                    _temp_img.pop();
-                }
-            }
-            // console.log(_frame)
+    //     resolve([2, 1]);
+    // }).then(function () {
+    return new Promise((resolve, reject) => {
+        const limit = 5, res = 3, clean = false, callback = null;
+        //console.log(_max_temp, _min_temp, _max_wind, _min_wind)
+        //return new Promise((resolve, reject) => {
+        let self = this;
+        if (!(self instanceof WeatherMap))
+            self = __context;
+        //console.log(self);
+        // console.log(_temp_img.length, frame);
 
-        }
-        else {
+        const index = _temp_img.findIndex(data => data.ratio !== ratio);
+        if (index >= 0) {
             while (_temp_img.length > 0) {
                 _temp_img.pop();
             }
         }
-        // await this.delay(500);
-        return;
-    }
-    _ratio = ratio;
 
-    let ctx = self.ctx,
-        dbl = 2 * res,
-        col = [],
-        cnt = 0,
-        x = 0,
-        y = 0,
-        val = 0.0,
-        str = '',
-        xBeg = self.limits.xMin,
-        yBeg = self.limits.yMin,
-        xEnd = self.limits.xMax,
-        yEnd = self.limits.yMax,
-        lim = limit > self.points.length ? self.points.length : limit + 1,
-        gradient;
+        const data = _temp_img.find(a => a.frame === frame);
+        if (data) {
+            self.ctx.clearRect(0, 0, self.size.width, self.size.height);
+            // self.ctx.scale(ratio, ratio);
+            try {
+                self.ctx.putImageData(data.data, 0, 0);
+            } catch (err) {
+                console.log("error:", err.message);
+            }
+        }
+        else if (_temp_img.length < 7) {
+            let ctx = self.ctx,
+                dbl = 2 * res,
+                col = [],
+                cnt = 0,
+                x = 0,
+                y = 0,
+                val = 0.0,
+                str = '',
+                xBeg = self.limits.xMin,
+                yBeg = self.limits.yMin,
+                xEnd = self.limits.xMax,
+                yEnd = self.limits.yMax,
+                lim = limit > self.points.length ? self.points.length : limit + 1,
+                gradient;
 
-    ctx.clearRect(0, 0, self.size.width, self.size.height);
-    // console.log(self.size.width, self.size.height)
-    //ctx.width += 0;   //<=== Resizing the canvas will cause the canvas to get cleared.
+            ctx.clearRect(0, 0, self.size.width, self.size.height);
+            // console.log(self.size.width, self.size.height)
+            //ctx.width += 0;   //<=== Resizing the canvas will cause the canvas to get cleared.
 
-    // Draw aproximation
-    for (x = xBeg; x < xEnd; x = x + res) {
-        for (y = yBeg; y < yEnd; y = y + res) {
-            // val = self.getPointValue(lim, { x: x, y: y }, 'temp', frame);
-            // //console.log(val)
-            // if (val && val !== -255) {
-            //     ctx.beginPath();  //<== beginpath
+            // Draw aproximation
+            for (x = xBeg; x < xEnd; x = x + res) {
+                for (y = yBeg; y < yEnd; y = y + res) {
+                    // val = self.getPointValue(lim, { x: x, y: y }, 'temp', frame);
+                    // //console.log(val)
+                    // if (val && val !== -255) {
+                    //     ctx.beginPath();  //<== beginpath
 
-            //     col = self.getTemp(true, val);
-            //     str = 'rgba(' + col[0] + ', ' + col[1] + ', ' + col[2] + ', ';
-            //     //console.log(col);
-            //     //str = 'rgba(' + 225 + ', ' + 225 + ', ' + 225 + ', ';
-            //     gradient = ctx.createRadialGradient(x, y, 1, x, y, res);
-            //     gradient.addColorStop(0, str + `0.5)`);
-            //     gradient.addColorStop(1, str + '0)');
-            //     //ctx.fillStyle = "#191919"; //<=== must be filled white for properly render
-            //     ctx.fillStyle = gradient;
-            //     ctx.fillRect(x - res, y - res, dbl, dbl);
-            //     ctx.fill();
-            //     ctx.closePath(); //<== must be closed
+                    //     col = self.getTemp(true, val);
+                    //     str = 'rgba(' + col[0] + ', ' + col[1] + ', ' + col[2] + ', ';
+                    //     //console.log(col);
+                    //     //str = 'rgba(' + 225 + ', ' + 225 + ', ' + 225 + ', ';
+                    //     gradient = ctx.createRadialGradient(x, y, 1, x, y, res);
+                    //     gradient.addColorStop(0, str + `0.5)`);
+                    //     gradient.addColorStop(1, str + '0)');
+                    //     //ctx.fillStyle = "#191919"; //<=== must be filled white for properly render
+                    //     ctx.fillStyle = gradient;
+                    //     ctx.fillRect(x - res, y - res, dbl, dbl);
+                    //     ctx.fill();
+                    //     ctx.closePath(); //<== must be closed
+
+                    // }
+
+                    /*val = self.getPointValue(lim, { x: x, y: y }, 'wind', frame);
+                    if (val && val != -255) {
+                        ctx.beginPath();  //<== beginpath
+        
+                        col = self.getWind(true, val);
+                        if (col < 0.1)
+                            col = 0;
+                        //str = 'rgba(' + col[0] + ', ' + col[1] + ', ' + col[2] + ', ';
+                        //console.log(col);
+                        str = 'rgba(' + 0 + ', ' + 0 + ', ' + 255 + ', ';
+                        gradient = ctx.createRadialGradient(x, y, 1, x, y, res);
+                        gradient.addColorStop(0, str + `${col})`);
+                        gradient.addColorStop(1, str + '0)');
+                        //ctx.fillStyle = "#191919"; //<=== must be filled white for properly render
+                        ctx.fillStyle = gradient;
+                        ctx.fillRect(x - res, y - res, dbl, dbl);
+                        ctx.fill();
+                        ctx.closePath(); //<== must be closed
+                    }*/
+
+                    val = self.getPointValue(lim, { x: x, y: y }, 'rain', frame);
+                    if (val && val != -255) {
+                        ctx.beginPath();  //<== beginpath
+
+                        col = self.getShower(true, val);
+                        if (col < 0.06)
+                            col = 0;
+                        //str = 'rgba(' + col[0] + ', ' + col[1] + ', ' + col[2] + ', ';
+                        //console.log(col);
+                        str = 'rgba(' + 64 + ', ' + 64 + ', ' + 64 + ', ';
+                        gradient = ctx.createRadialGradient(x, y, 1, x, y, res);
+                        gradient.addColorStop(0, str + `${col})`);
+                        gradient.addColorStop(1, str + '0)');
+                        //ctx.fillStyle = "#191919"; //<=== must be filled white for properly render
+                        ctx.fillStyle = gradient;
+                        ctx.fillRect(x - res, y - res, dbl, dbl);
+                        ctx.fill();
+                        ctx.closePath(); //<== must be closed
+                    }
+
+                    val = self.getPointValue(lim, { x: x, y: y }, 'snow', frame);
+                    if (val && val != -255) {
+                        ctx.beginPath();  //<== beginpath
+
+                        col = self.getShower(true, val);
+                        if (col < 0.06)
+                            col = 0;
+                        //str = 'rgba(' + col[0] + ', ' + col[1] + ', ' + col[2] + ', ';
+                        //console.log(col);
+                        str = 'rgba(' + 0 + ', ' + 255 + ', ' + 255 + ', ';
+                        gradient = ctx.createRadialGradient(x, y, 1, x, y, res);
+                        gradient.addColorStop(0, str + `${col})`);
+                        gradient.addColorStop(1, str + '0)');
+                        //ctx.fillStyle = "#191919"; //<=== must be filled white for properly render
+                        ctx.fillStyle = gradient;
+                        ctx.fillRect(x - res, y - res, dbl, dbl);
+                        ctx.fill();
+                        ctx.closePath(); //<== must be closed
+                    }
+
+
+
+                    // val = self.getPointValue(lim, { x: x, y: y }, 'uv', frame);
+                    // if (val && val != -255) {
+                    //     ctx.beginPath();  //<== beginpath
+
+                    //     col = self.getUV(true, val);
+                    //     if (col < 0.1)
+                    //         col = 0;
+                    //     //str = 'rgba(' + col[0] + ', ' + col[1] + ', ' + col[2] + ', ';
+                    //     //console.log(col);
+                    //     //str = 'rgba(' + 141 + ', ' + 2 + ', ' + 241 + ', ';
+                    //     str = 'rgba(' + 255 + ', ' + 0 + ', ' + 0 + ', ';
+                    //     gradient = ctx.createRadialGradient(x, y, 1, x, y, res);
+                    //     gradient.addColorStop(0, str + `${col})`);
+                    //     gradient.addColorStop(1, str + '0)');
+                    //     //ctx.fillStyle = "#191919"; //<=== must be filled white for properly render
+                    //     ctx.fillStyle = gradient;
+                    //     ctx.fillRect(x - res, y - res, dbl, dbl);
+                    //     ctx.fill();
+                    //     ctx.closePath(); //<== must be closed
+                    // }
+
+
+                }
+            }
+
+            const frame_x = 160 * __scale * ratio, frame_y = 250 * __scale * ratio;
+            ctx.beginPath();
+            ctx.fillStyle = 'rgba(255, 255, 255, 0.5)';
+            ctx.beginPath();
+            ctx.arc(frame_x, frame_y, 60 * __scale * ratio, 0, 2 * Math.PI, false);
+            ctx.fill();
+
+            ctx.lineWidth = 1;
+            ctx.strokeStyle = 'rgb(111,111,111)';
+            ctx.beginPath();
+            ctx.arc(frame_x, frame_y, 60 * __scale * ratio, 0, 2 * Math.PI, false);
+            //ctx.stroke();
+
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            ctx.fillStyle = '#9ecaee';
+            ctx.font = `${ratio * 30}px Arial`;
+            ctx.fillText(frame, frame_x, frame_y - 10);
+            ctx.fillText(__day[frame], frame_x, frame_y + 25);
+            ctx.closePath();
+
+            // Erase polygon outsides
+            if (clean && self.polygon.length > 1) {
+                ctx.globalCompositeOperation = 'destination-in';
+                ctx.fillStyle = 'rgb(255, 255, 255)';
+                ctx.beginPath();
+                ctx.moveTo(self.polygon[0].x, self.polygon[0].y);
+                for (cnt = 1; cnt < self.polygon.length; cnt = cnt + 1) {
+                    ctx.lineTo(self.polygon[cnt].x, self.polygon[cnt].y);
+                }
+                ctx.lineTo(self.polygon[0].x, self.polygon[0].y);
+                ctx.closePath();
+                ctx.fill();
+                ctx.globalCompositeOperation = 'source-over';
+            }
+
+            if (typeof callback === 'function') {
+                callback();
+            }
+            //     resolve("done!");
+            // });
+
+            // if (__done) {
+            //     ++_frame;
+            //     //_frame[frame] = 
+            //     _temp_img.push(self.ctx.getImageData(0, 0, self.width, self.height));
+            // }
+
+            _temp_img.push({ frame, ratio, data: self.ctx.getImageData(0, 0, self.width, self.height) });
+
+        }
+        else {
+            //let frame = 0;
+            // if (frame < 7) {
+            //     //frame = _frame;
+            //     self.ctx.clearRect(0, 0, self.size.width, self.size.height);
+            //     // self.ctx.scale(ratio, ratio);
+            //     try {
+            //         self.ctx.putImageData(_temp_img[frame], 0, 0);
+            //     } catch (err) {
+            //         console.log("error:", err.message);
+            //         while (_temp_img.length > 0) {
+            //             _temp_img.pop();
+            //         }
+            //     }
+            //     // console.log(_frame)
 
             // }
 
-            /*val = self.getPointValue(lim, { x: x, y: y }, 'wind', frame);
-            if (val && val != -255) {
-                ctx.beginPath();  //<== beginpath
-
-                col = self.getWind(true, val);
-                if (col < 0.1)
-                    col = 0;
-                //str = 'rgba(' + col[0] + ', ' + col[1] + ', ' + col[2] + ', ';
-                //console.log(col);
-                str = 'rgba(' + 0 + ', ' + 0 + ', ' + 255 + ', ';
-                gradient = ctx.createRadialGradient(x, y, 1, x, y, res);
-                gradient.addColorStop(0, str + `${col})`);
-                gradient.addColorStop(1, str + '0)');
-                //ctx.fillStyle = "#191919"; //<=== must be filled white for properly render
-                ctx.fillStyle = gradient;
-                ctx.fillRect(x - res, y - res, dbl, dbl);
-                ctx.fill();
-                ctx.closePath(); //<== must be closed
-            }*/
-
-            val = self.getPointValue(lim, { x: x, y: y }, 'snow', frame);
-            if (val && val != -255) {
-                ctx.beginPath();  //<== beginpath
-
-                col = self.getShower(true, val);
-                if (col < 0.1)
-                    col = 0;
-                //str = 'rgba(' + col[0] + ', ' + col[1] + ', ' + col[2] + ', ';
-                //console.log(col);
-                str = 'rgba(' + 0 + ', ' + 255 + ', ' + 255 + ', ';
-                gradient = ctx.createRadialGradient(x, y, 1, x, y, res);
-                gradient.addColorStop(0, str + `${col})`);
-                gradient.addColorStop(1, str + '0)');
-                //ctx.fillStyle = "#191919"; //<=== must be filled white for properly render
-                ctx.fillStyle = gradient;
-                ctx.fillRect(x - res, y - res, dbl, dbl);
-                ctx.fill();
-                ctx.closePath(); //<== must be closed
-            }
-
-            val = self.getPointValue(lim, { x: x, y: y }, 'rain', frame);
-            if (val && val != -255) {
-                ctx.beginPath();  //<== beginpath
-
-                col = self.getShower(true, val);
-                if (col < 0.1)
-                    col = 0;
-                //str = 'rgba(' + col[0] + ', ' + col[1] + ', ' + col[2] + ', ';
-                //console.log(col);
-                str = 'rgba(' + 0 + ', ' + 0 + ', ' + 0 + ', ';
-                gradient = ctx.createRadialGradient(x, y, 1, x, y, res);
-                gradient.addColorStop(0, str + `${col})`);
-                gradient.addColorStop(1, str + '0)');
-                //ctx.fillStyle = "#191919"; //<=== must be filled white for properly render
-                ctx.fillStyle = gradient;
-                ctx.fillRect(x - res, y - res, dbl, dbl);
-                ctx.fill();
-                ctx.closePath(); //<== must be closed
-            }
-
-
-
-            // val = self.getPointValue(lim, { x: x, y: y }, 'uv', frame);
-            // if (val && val != -255) {
-            //     ctx.beginPath();  //<== beginpath
-
-            //     col = self.getUV(true, val);
-            //     if (col < 0.1)
-            //         col = 0;
-            //     //str = 'rgba(' + col[0] + ', ' + col[1] + ', ' + col[2] + ', ';
-            //     //console.log(col);
-            //     //str = 'rgba(' + 141 + ', ' + 2 + ', ' + 241 + ', ';
-            //     str = 'rgba(' + 255 + ', ' + 0 + ', ' + 0 + ', ';
-            //     gradient = ctx.createRadialGradient(x, y, 1, x, y, res);
-            //     gradient.addColorStop(0, str + `${col})`);
-            //     gradient.addColorStop(1, str + '0)');
-            //     //ctx.fillStyle = "#191919"; //<=== must be filled white for properly render
-            //     ctx.fillStyle = gradient;
-            //     ctx.fillRect(x - res, y - res, dbl, dbl);
-            //     ctx.fill();
-            //     ctx.closePath(); //<== must be closed
-            // }
-
-
         }
-    }
+        resolve([_temp_img.length === 7 ? 3 : 2, 0]);
+        // setTimeout(this.drawLow, 1000);
+    });
 
-    const frame_x = 160 * __scale * ratio, frame_y = 250 * __scale * ratio;
-    ctx.beginPath();
-    ctx.fillStyle = 'rgba(255, 255, 255, 0.5)';
-    ctx.beginPath();
-    ctx.arc(frame_x, frame_y, 60 * __scale * ratio, 0, 2 * Math.PI, false);
-    ctx.fill();
-
-    ctx.lineWidth = 1;
-    ctx.strokeStyle = 'rgb(111,111,111)';
-    ctx.beginPath();
-    ctx.arc(frame_x, frame_y, 60 * __scale * ratio, 0, 2 * Math.PI, false);
-    //ctx.stroke();
-
-    ctx.textAlign = 'center';
-    ctx.textBaseline = 'middle';
-    ctx.fillStyle = 'rgb(0, 0, 0)';
-    ctx.font = "40px serif";
-    ctx.fillText(frame, frame_x, frame_y - 10);
-    ctx.fillText(__day[frame], frame_x, frame_y + 25);
-    ctx.closePath();
-
-    // Erase polygon outsides
-    if (clean && self.polygon.length > 1) {
-        ctx.globalCompositeOperation = 'destination-in';
-        ctx.fillStyle = 'rgb(255, 255, 255)';
-        ctx.beginPath();
-        ctx.moveTo(self.polygon[0].x, self.polygon[0].y);
-        for (cnt = 1; cnt < self.polygon.length; cnt = cnt + 1) {
-            ctx.lineTo(self.polygon[cnt].x, self.polygon[cnt].y);
-        }
-        ctx.lineTo(self.polygon[0].x, self.polygon[0].y);
-        ctx.closePath();
-        ctx.fill();
-        ctx.globalCompositeOperation = 'source-over';
-    }
-
-    if (typeof callback === 'function') {
-        callback();
-    }
-    //     resolve("done!");
     // });
-
-    // if (__done) {
-    //     ++_frame;
-    //     //_frame[frame] = 
-    //     _temp_img.push(self.ctx.getImageData(0, 0, self.width, self.height));
-    // }
-
-    _temp_img.push(self.ctx.getImageData(0, 0, self.width, self.height));
-
-    // setTimeout(this.drawLow, 1000);
-
 };
 
 

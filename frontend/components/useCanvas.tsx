@@ -1,7 +1,7 @@
 import { useRef, useEffect } from 'react'
 import WeatherMap from './graphics/weatherMap';
 
-const useCanvas = (draw: any) => {
+const useCanvas = (draw: any, type: number = 1) => {
 
     const canvasRef = useRef(null)
 
@@ -53,26 +53,35 @@ const useCanvas = (draw: any) => {
             const [ratio, width, height] = resizeCanvas(canvas)
             if (ratio > 0) {
                 // context.scale(ratio,ratio)
+                if (type === 0) {
+                    context.canvas.width = width;
+                    weatherMap.size.width = width;
+                    weatherMap.size.height = height;
+                    draw(weatherMap, frameCount, ratio);
+                    ++frameCount;
 
-                if (frameCount >= 0 && frameCount < 7) {
-                    if (previousTimeStamp === undefined || (timeStamp - previousTimeStamp) > (frameCount === 0 ? 3000 : 1500)) {
-                        previousTimeStamp = timeStamp;
-                        context.canvas.height = height;
-                        context.canvas.width = width;
-                        weatherMap.size.width = width;
-                        weatherMap.size.height = height;
-                        draw(weatherMap, frameCount, ratio);
+                }
+                else {
+                    if (frameCount >= 0 && frameCount < 7) {
+                        if (previousTimeStamp === undefined || (timeStamp - previousTimeStamp) > (frameCount === 0 ? 3000 : 1500)) {
+                            previousTimeStamp = timeStamp;
+                            context.canvas.height = height;
+                            context.canvas.width = width;
+                            weatherMap.size.width = width;
+                            weatherMap.size.height = height;
+                            draw(weatherMap, frameCount, ratio);
+                            ++frameCount;
+                        }
+
+                    }
+                    else if (frameCount > 6 || frameCount < 0) {
                         ++frameCount;
+                        if (frameCount > 400)
+                            frameCount = -100;
+
                     }
 
                 }
-                else if (frameCount > 6 || frameCount < 0) {
-                    ++frameCount;
-                    if (frameCount > 400)
-                        frameCount = -100;
-
-                }
-
             }
             // console.log(timeStamp, previousTimeStamp, start, timeStamp - start, timeStamp - previousTimeStamp, frameCount);
 
