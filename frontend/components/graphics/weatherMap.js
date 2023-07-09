@@ -374,7 +374,7 @@ WeatherMap.prototype.drawLow = async function (frame, ratio) {//(limit, res, cle
                         ctx.beginPath();  //<== beginpath
 
                         col = self.getShower(true, val);
-                        if (col < 0.06)
+                        if (col < 0.08)
                             col = 0;
                         //str = 'rgba(' + col[0] + ', ' + col[1] + ', ' + col[2] + ', ';
                         //console.log(col);
@@ -394,7 +394,7 @@ WeatherMap.prototype.drawLow = async function (frame, ratio) {//(limit, res, cle
                         ctx.beginPath();  //<== beginpath
 
                         col = self.getShower(true, val);
-                        if (col < 0.06)
+                        if (col < 0.08)
                             col = 0;
                         //str = 'rgba(' + col[0] + ', ' + col[1] + ', ' + col[2] + ', ';
                         //console.log(col);
