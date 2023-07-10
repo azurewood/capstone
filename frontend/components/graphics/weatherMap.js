@@ -262,7 +262,7 @@ let __context, __rst = [], __done = false;
 let __date = ["", "", "", "", "", "", ""];
 const __dayNames = ["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"];
 const __scale = 0.584475;
-let __day = ["", "", "", "", "", "", ""];
+// let __day = ["", "", "", "", "", "", ""];
 WeatherMap.prototype.setPoints = function (arr, width, height) {
     __context = this;
     // __points = arr;
@@ -274,11 +274,9 @@ WeatherMap.prototype.setPoints = function (arr, width, height) {
     this.setConvexhullPolygon(this.points);
 };
 
+import { __day } from "@/app/dataHub";
 let _temp_img = [];
 WeatherMap.prototype.drawLow = async function (frame, ratio) {//(limit, res, clean, callback, frame = 0) {
-    // return new Promise((resolve, reject) => {
-    //     resolve([2, 1]);
-    // }).then(function () {
     return new Promise((resolve, reject) => {
         const limit = 5, res = 3, clean = false, callback = null;
         //console.log(_max_temp, _min_temp, _max_wind, _min_wind)
@@ -436,25 +434,25 @@ WeatherMap.prototype.drawLow = async function (frame, ratio) {//(limit, res, cle
                 }
             }
 
-            const frame_x = 160 * __scale * ratio, frame_y = 250 * __scale * ratio;
+            const frame_x = 159 * __scale * ratio, frame_y = 250 * __scale * ratio;
             ctx.beginPath();
-            ctx.fillStyle = 'rgba(255, 255, 255, 0.5)';
+            ctx.fillStyle = '#9ecaee';
             ctx.beginPath();
-            ctx.arc(frame_x, frame_y, 60 * __scale * ratio, 0, 2 * Math.PI, false);
+            ctx.arc(frame_x, frame_y, 100 * __scale * ratio, 0, 2 * Math.PI, false);
             ctx.fill();
 
             ctx.lineWidth = 1;
-            ctx.strokeStyle = 'rgb(111,111,111)';
+            ctx.strokeStyle = 'rgba(255,255,255,0.5)';
             ctx.beginPath();
-            ctx.arc(frame_x, frame_y, 60 * __scale * ratio, 0, 2 * Math.PI, false);
-            //ctx.stroke();
+            ctx.arc(frame_x, frame_y, 100 * __scale * ratio, 0, 2 * Math.PI, false);
+            ctx.stroke();
 
             ctx.textAlign = 'center';
             ctx.textBaseline = 'middle';
-            ctx.fillStyle = '#9ecaee';
+            ctx.fillStyle = '#ffffff';
             ctx.font = `${ratio * 30}px Arial`;
-            ctx.fillText(frame, frame_x, frame_y - 10);
-            ctx.fillText(__day[frame], frame_x, frame_y + 25);
+            ctx.fillText(frame, frame_x, frame_y - 20*ratio);
+            ctx.fillText(__day[frame], frame_x, frame_y + 15*ratio);
             ctx.closePath();
 
             // Erase polygon outsides

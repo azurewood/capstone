@@ -197,4 +197,4 @@ const get_data = async function () {
 
 }
 
-export { __dayNames, __scale, __areas, __state, get_data }
+export { __dayNames, __scale, __areas, __state, get_data, __day }

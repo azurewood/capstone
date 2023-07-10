@@ -35,15 +35,15 @@ const Slides = () => {
         weatherMap.ctx.clearRect(0, 0, weatherMap.ctx.canvas.width, weatherMap.ctx.canvas.height)
         weatherMap.ctx.fillStyle = '#9ecaee'
         weatherMap.ctx.beginPath()
-        weatherMap.ctx.arc(93.5 * ratio, 146.1 * ratio, ratio*20 * Math.sin(frameCount * 0.05) ** 2, 0, 2 * Math.PI)
+        weatherMap.ctx.arc(93.5 * ratio, 146.1 * ratio, ratio*30 * Math.sin(frameCount * 0.05) ** 2, 0, 2 * Math.PI)
         weatherMap.ctx.fill()
+        weatherMap.ctx.closePath();
 
         weatherMap.ctx.textAlign = 'center';
         weatherMap.ctx.textBaseline = 'middle';
-        weatherMap.ctx.fillStyle = '#9ecaee';
+        weatherMap.ctx.fillStyle = '#404040';
         weatherMap.ctx.font = `${ratio * 16}px Lucida Console`;
-        weatherMap.ctx.fillText("Connecting..", 450*ratio-40, 600*ratio - 50);
-        weatherMap.ctx.closePath();
+        weatherMap.ctx.fillText("Connecting..", 420*ratio, 560*ratio);
     }
 
     const handleContextMenu = (event: any) => {
@@ -100,10 +100,10 @@ const Slides = () => {
                             data-te-carousel-active
                             data-te-carousel-item >
                             <Canvas draw={draw} name="splash" width="512" height="723" className="absolute top-0 left-0 -z-10" />
-                            <img
+                            {/* <img
                                 src="azure.png"
                                 className="block w-full -z-30 absolute top-0 left-0 opacity-40"
-                                alt="..." onContextMenu={handleContextMenu} />
+                                alt="..." onContextMenu={handleContextMenu} /> */}
                             <img src="map_nz.png" className="block w-full z-0" onContextMenu={handleContextMenu} />
                             <div
                                 className="absolute inset-x-[15%] bottom-5 hidden py-5 text-center text-white md:block">
@@ -118,10 +118,10 @@ const Slides = () => {
                                 data-te-carousel-active
                                 data-te-carousel-item >
                                 <Precipitation name="precipitation" width="512" height="723" className="absolute top-0 left-0 -z-10" />
-                                <img
+                                {/* <img
                                     src="azure.png"
                                     className="block w-full -z-30 absolute top-0 left-0 opacity-40"
-                                    alt="..." onContextMenu={handleContextMenu} />
+                                    alt="..." onContextMenu={handleContextMenu} /> */}
                                 <img src="map_nz.png" className="block w-full z-0" onContextMenu={handleContextMenu} />
                                 <div
                                     className="absolute inset-x-[15%] bottom-5 hidden py-5 text-center text-white md:block">
