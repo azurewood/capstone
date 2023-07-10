@@ -19,7 +19,7 @@ const Precipitation = (props: any) => {
         //     item.y *= ratio;
         //     return item;
         // }), 512 * ratio, 723 * ratio);
-        setState(2);
+        setState(4);
         setBusy(1);
 
         weatherMap.setPoints(data.map((a) => {

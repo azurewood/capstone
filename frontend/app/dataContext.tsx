@@ -23,7 +23,7 @@ export interface DataContextType {
 }
 
 const DataContext = createContext<DataContextType>({
-  state: 0,  // 0: connecting; 1: fetching; 2: calculating; 3: done; -1: error; -2: uncompleted error;
+  state: 0,  // 0: connecting; 1: fetching; 2: calculating; 3: done; 4: processing; -1: error; -2: uncompleted error;
   setState: () => 0,
   data: [],
   setData: () => [],
