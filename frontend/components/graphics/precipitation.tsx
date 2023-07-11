@@ -1,7 +1,10 @@
 import React, { useEffect, useContext } from 'react';
 import useCanvas from '../useCanvas';
 import { DataContext } from "@/app/dataContext";
+import type { DataType } from '@/app/dataContext';
+
 import WeatherMap from './weatherMap';
+import { __rst } from '@/app/dataHub';
 
 const Precipitation = (props: any) => {
     const { state, setState, data, setBusy } = useContext(DataContext);
@@ -22,13 +25,13 @@ const Precipitation = (props: any) => {
         setState(4);
         setBusy(1);
 
-        weatherMap.setPoints(data.map((a) => {
+        weatherMap.setPoints(__rst.map((a: DataType) => {
             const b = { ...a };
             b.x *= ratio;
             b.y *= ratio;
             return b;
         }), 512 * ratio, 723 * ratio);
-        weatherMap.drawLow(frameCount, ratio).then(([state,busy])=>{
+        weatherMap.drawLow(frameCount, ratio).then(([state, busy]) => {
             setState(state);
             setBusy(busy);
         });

@@ -5,7 +5,7 @@ import {
 } from "tw-elements";
 import { useEffect, useContext, useState } from "react";
 import Canvas from "./canvas";
-import { __state, get_data } from '@/app/dataHub';
+import { get_data } from '@/app/dataHub';
 import { DataContext } from "@/app/dataContext";
 import Precipitation from "./graphics/precipitation";
 import WeatherMap from "./graphics/weatherMap";
@@ -14,19 +14,25 @@ const Slides = () => {
     const { state, setState, data, setData, busy } = useContext(DataContext);
 
     useEffect(() => {
-        setState(0);
         initTE({ Carousel });
-        get_data().then(data => {
-            console.log(data.length, state);
-            setData(data);
-        }).catch(err => {
-            console.log("error:", err.message);
-            setState(-2);
-        })
-            .finally(() => {
+        if (data.length === 0) {
+            setState(0);
+            get_data().then(data => {
+                console.log(data.length, state);
+                // setData(data);
+                setData(data.map(a => {
+                    const b = { ...a };
+                    // console.log(b.city);
+                    return { area: b.area, city: b.city, wc: [...b.wc], x: b.x, y: b.y, temp: [...b.temp], wind: [...b.wind], rain: [...b.rain], snow: [...b.snow], uv: [...b.uv] }
+                }));
+            }).catch(err => {
+                console.log("error:", err.message);
+                setState(-2);
+            }).finally(() => {
                 // console.log("end");
                 setState(3);
             });
+        }
 
     }, []);
 
@@ -188,7 +194,7 @@ const Slides = () => {
                     <>
                         {/* <!--Carousel controls - prev item--> */}
                         <button
-                            className="absolute bottom-0 left-0 top-1/2 transform -translate-y-1/2  z-[1] flex w-[15%] h-[30%] items-center justify-center border-0 bg-none p-0 text-center text-white opacity-50 transition-opacity duration-150 ease-[cubic-bezier(0.25,0.1,0.25,1.0)] hover:text-white hover:no-underline hover:opacity-90 hover:outline-none focus:text-white focus:no-underline focus:opacity-90 focus:outline-none motion-reduce:transition-none"
+                            className="absolute bottom-0 left-0 top-1/2 transform -translate-y-1/2 z-[1] flex w-[15%] h-[30%] items-center justify-center border-0 bg-none p-0 text-center text-white opacity-50 transition-opacity duration-150 ease-[cubic-bezier(0.25,0.1,0.25,1.0)] hover:text-white hover:no-underline hover:opacity-90 hover:outline-none focus:text-white focus:no-underline focus:opacity-90 focus:outline-none motion-reduce:transition-none"
                             type="button"
                             data-te-target="#carouselMaps"
                             data-te-slide="prev">

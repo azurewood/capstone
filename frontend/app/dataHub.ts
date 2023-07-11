@@ -1,3 +1,5 @@
+import type { DataType } from "./dataContext";
+
 const __dayNames = ["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"];
 const __scale = 0.584475;
 const __areas = [
@@ -21,13 +23,13 @@ const __areas = [
 
 let __date = ["", "", "", "", "", "", ""];
 let __day = ["", "", "", "", "", "", ""];
-let _data;
-let __rst = [];
+let _data: any;
+let __rst: DataType[] = [];
 // let __done = false;
 let __state = 0;
-let __temp_img = [];
+let __temp_img: any = [];
 
-const fetch_data = function (area) {
+const fetch_data = function (area: string) {
 
     return new Promise((resolve, reject) => {
         const url = `https://nz-weather-api.onrender.com/api/weather/area/${area}?now=0`;
@@ -66,7 +68,7 @@ const fetch_data = function (area) {
 
                     if (_data) {
                         //console.log(Http.responseText);
-                        _data = _data.map(item => {
+                        _data = _data.map((item: any) => {
                             if (item) {
                                 item.y = Math.abs(item.latitude); //_unpack_dm_latitude(item.coordinates.split(' ')[0]);
                                 item.x = Math.abs(item.longitude); //_unpack_dm_longitude(item.coordinates.split(' ')[1]);
@@ -84,9 +86,9 @@ const fetch_data = function (area) {
                         //rst = [];
 
 
-                        _data.forEach(element => {
+                        _data.forEach((element: any) => {
                             if (element && isFinite(element.latitude) && isFinite(element.longitude)) {
-                                let v = [], w = [], r = [], s = [], u = []; //0.0,
+                                let v: any = [], w: any = [], r: any = [], s: any = [], u: any = [], wc: any = []; //0.0,
                                 x = (element.x - 166.3) * 67.36 + 20;
                                 y = (element.y - 33.9) * 88 + 10;
 
@@ -138,6 +140,8 @@ const fetch_data = function (area) {
                                     s.push(tmp);
                                     tmp = parseFloat(element.daily.uv_index_max[idx]);
                                     u.push(tmp);
+                                    tmp = parseInt(element.daily.weathercode[idx]);
+                                    wc.push(tmp);
                                     // if (isNaN(_max_wind) || tmp > _max_wind)
                                     //     _max_wind = tmp;
                                     // if (isNaN(_min_wind) || tmp < _min_wind)
@@ -147,7 +151,7 @@ const fetch_data = function (area) {
                                 })
 
                                 if (element.x > 0 && element.y > 0 && x > 0 && y > 0)
-                                    __rst.push({ x: x, y: y, temp: v, wind: w, rain: r, snow: s, uv: u });
+                                    __rst.push({ area, city: element.city, wc: wc, x: x, y: y, temp: v, wind: w, rain: r, snow: s, uv: u });
                                 //console.log(x, y, v, w);
                             }
                         });
@@ -181,16 +185,18 @@ const fetch_data = function (area) {
 }
 
 const get_data = async function () {
-    while (__temp_img.length > 0) {
-        __temp_img.pop();
-    }
+    // while (__temp_img.length > 0) {
+    //     __temp_img.pop();
+    // }
     while (__rst.length > 0) {
         __rst.pop();
     }
-    let data_funcs = [];
+    let data_funcs: any = [];
     __areas.forEach(area => data_funcs.push(fetch_data(area)));
     await Promise.all(data_funcs).then((results) => {
-        console.log(results);
+        // console.log(results);
+        // console.log(__rst);
+        // console.log(__date);
         // __done = true;
         __state = 3;
         // this.animate();
@@ -204,4 +210,4 @@ const get_data = async function () {
 
 }
 
-export { __dayNames, __scale, __areas, __state, get_data, __day, __temp_img, __rst }
+export { __dayNames, __scale, __areas, get_data, __day, __temp_img, __rst }
