@@ -23,7 +23,7 @@ let __date = ["", "", "", "", "", "", ""];
 let __day = ["", "", "", "", "", "", ""];
 let _data;
 let __rst = [];
-let __done = false;
+// let __done = false;
 let __state = 0;
 let __temp_img = [];
 

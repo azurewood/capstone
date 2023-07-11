@@ -259,8 +259,8 @@ WeatherMap.prototype.setConvexhullPolygon = function (points) {
 
 // let __points, __width, __height, __context;
 let __context;//, __rst = [], __done = false;
-let __date = ["", "", "", "", "", "", ""];
-const __dayNames = ["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"];
+// let __date = ["", "", "", "", "", "", ""];
+// const __dayNames = ["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"];
 const __scale = 0.584475;
 // let __day = ["", "", "", "", "", "", ""];
 WeatherMap.prototype.setPoints = function (arr, width, height) {
