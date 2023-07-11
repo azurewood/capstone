@@ -25,6 +25,7 @@ let _data;
 let __rst = [];
 let __done = false;
 let __state = 0;
+let __temp_img = [];
 
 const fetch_data = function (area) {
 
@@ -180,6 +181,12 @@ const fetch_data = function (area) {
 }
 
 const get_data = async function () {
+    while (__temp_img.length > 0) {
+        __temp_img.pop();
+    }
+    while (__rst.length > 0) {
+        __rst.pop();
+    }
     let data_funcs = [];
     __areas.forEach(area => data_funcs.push(fetch_data(area)));
     await Promise.all(data_funcs).then((results) => {
@@ -197,4 +204,4 @@ const get_data = async function () {
 
 }
 
-export { __dayNames, __scale, __areas, __state, get_data, __day }
+export { __dayNames, __scale, __areas, __state, get_data, __day, __temp_img, __rst }

@@ -258,7 +258,7 @@ WeatherMap.prototype.setConvexhullPolygon = function (points) {
 };
 
 // let __points, __width, __height, __context;
-let __context, __rst = [], __done = false;
+let __context;//, __rst = [], __done = false;
 let __date = ["", "", "", "", "", "", ""];
 const __dayNames = ["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"];
 const __scale = 0.584475;
@@ -274,8 +274,8 @@ WeatherMap.prototype.setPoints = function (arr, width, height) {
     this.setConvexhullPolygon(this.points);
 };
 
-import { __day } from "@/app/dataHub";
-let _temp_img = [];
+import { __day, __temp_img } from "@/app/dataHub";
+//let _temp_img = [];
 WeatherMap.prototype.drawLow = async function (frame, ratio) {//(limit, res, clean, callback, frame = 0) {
     return new Promise((resolve, reject) => {
         const limit = 5, res = 3, clean = false, callback = null;
@@ -287,14 +287,14 @@ WeatherMap.prototype.drawLow = async function (frame, ratio) {//(limit, res, cle
         //console.log(self);
         // console.log(_temp_img.length, frame);
 
-        const index = _temp_img.findIndex(data => data.ratio !== ratio);
+        const index = __temp_img.findIndex(data => data.ratio !== ratio);
         if (index >= 0) {
-            while (_temp_img.length > 0) {
-                _temp_img.pop();
+            while (__temp_img.length > 0) {
+                __temp_img.pop();
             }
         }
 
-        const data = _temp_img.find(a => a.frame === frame);
+        const data = __temp_img.find(a => a.frame === frame);
         if (data) {
             self.ctx.clearRect(0, 0, self.size.width, self.size.height);
             // self.ctx.scale(ratio, ratio);
@@ -304,7 +304,7 @@ WeatherMap.prototype.drawLow = async function (frame, ratio) {//(limit, res, cle
                 console.log("error:", err.message);
             }
         }
-        else if (_temp_img.length < 7) {
+        else if (__temp_img.length < 7) {
             let ctx = self.ctx,
                 dbl = 2 * res,
                 col = [],
@@ -482,7 +482,7 @@ WeatherMap.prototype.drawLow = async function (frame, ratio) {//(limit, res, cle
             //     _temp_img.push(self.ctx.getImageData(0, 0, self.width, self.height));
             // }
 
-            _temp_img.push({ frame, ratio, data: self.ctx.getImageData(0, 0, self.width, self.height) });
+            __temp_img.push({ frame, ratio, data: self.ctx.getImageData(0, 0, self.width, self.height) });
 
         }
         else {
@@ -504,7 +504,7 @@ WeatherMap.prototype.drawLow = async function (frame, ratio) {//(limit, res, cle
             // }
 
         }
-        resolve([_temp_img.length === 7 ? 3 : 2, 0]);
+        resolve([__temp_img.length === 7 ? 3 : 2, 0]);
         // setTimeout(this.drawLow, 1000);
     });
 
