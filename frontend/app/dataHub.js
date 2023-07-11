@@ -191,7 +191,7 @@ const get_data = async function () {
     __areas.forEach(area => data_funcs.push(fetch_data(area)));
     await Promise.all(data_funcs).then((results) => {
         console.log(results);
-        __done = true;
+        // __done = true;
         __state = 3;
         // this.animate();
     });
