@@ -1,7 +1,10 @@
-import { useRef, useEffect } from 'react'
+import { useRef, useEffect, useContext } from 'react'
 import WeatherMap from './graphics/weatherMap';
+import { DataContext } from "@/app/dataContext";
+import { setFips } from 'crypto';
 
 const useCanvas = (draw: any, type: number = 1) => {
+    const { frame, setFrame } = useContext(DataContext);
 
     const canvasRef = useRef(null)
 
@@ -38,7 +41,7 @@ const useCanvas = (draw: any, type: number = 1) => {
         const weatherMap = new WeatherMap(context);
         if (!context)
             return;
-        let frameCount = 0
+        let frameCount = frame;
         let animationFrameId: number
         let start: number, previousTimeStamp: number | undefined = undefined
 

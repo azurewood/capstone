@@ -11,7 +11,7 @@ import Precipitation from "./graphics/precipitation";
 import WeatherMap from "./graphics/weatherMap";
 
 const Slides = () => {
-    const { state, setState, data, setData, busy } = useContext(DataContext);
+    const { state, setState, data, setData, busy, setBusy, frame } = useContext(DataContext);
 
     useEffect(() => {
         initTE({ Carousel });
@@ -30,7 +30,8 @@ const Slides = () => {
                 setState(-2);
             }).finally(() => {
                 // console.log("end");
-                setState(3);
+                setState(2);
+                setBusy(1);
             });
         }
 
@@ -81,7 +82,7 @@ const Slides = () => {
                 data-te-carousel-slide>
 
                 {/* <!--Carousel indicators--> */}
-                {state > 1 ?
+                {state === 3 && busy === 0 ?//state > 1 ?
                     <div
                         className="absolute bottom-0 left-0 right-0 z-[2] mx-[15%] mb-4 flex list-none justify-center p-0"
                         data-te-carousel-indicators>
@@ -136,11 +137,12 @@ const Slides = () => {
                              className="block w-full -z-30 absolute top-0 left-0 opacity-40"
                              alt="..." onContextMenu={handleContextMenu} /> */}
                                 <img src="map_nz.png" className="block w-full z-0" onContextMenu={handleContextMenu} />
-                                <div
+                                {/* <div
                                     className="absolute inset-x-[15%] bottom-5 hidden py-5 text-center text-white md:block">
                                     <h5 className="text-xl">First slide label</h5>
                                     <p>Some representative placeholder content for the first slide.</p>
-                                </div>
+                                </div> */}
+                                {/* {frame} */}
                             </div>
                             {/* <!--Second item--> */}
                             <div
@@ -150,11 +152,11 @@ const Slides = () => {
                                     src="azure.png"
                                     className="block w-full -z-10"
                                     alt="..." />
-                                <div
+                                {/* <div
                                     className="absolute inset-x-[15%] bottom-5 hidden py-5 text-center text-white md:block">
                                     <h5 className="text-xl">Second slide label</h5>
                                     <p>Some representative placeholder content for the second slide.</p>
-                                </div>
+                                </div> */}
                             </div>
                             {/* <!--Third item--> */}
                             <div
@@ -164,11 +166,11 @@ const Slides = () => {
                                     src="azure.png"
                                     className="block w-full"
                                     alt="..." />
-                                <div
+                                {/* <div
                                     className="absolute inset-x-[15%] bottom-5 hidden py-5 text-center text-white md:block">
                                     <h5 className="text-xl">Third slide label</h5>
                                     <p>Some representative placeholder content for the third slide.</p>
-                                </div>
+                                </div> */}
                             </div>
                         </>
                         :
@@ -182,11 +184,11 @@ const Slides = () => {
                                 className="block w-full -z-30 absolute top-0 left-0 opacity-40"
                                 alt="..." onContextMenu={handleContextMenu} /> */}
                             <img src="map_nz.png" className="block w-full z-0" onContextMenu={handleContextMenu} />
-                            <div
+                            {/* <div
                                 className="absolute inset-x-[15%] bottom-5 hidden py-5 text-center text-white md:block">
                                 <h5 className="text-xl">First slide label</h5>
                                 <p>Some representative placeholder content for the first slide.</p>
-                            </div>
+                            </div> */}
                         </div>}
                 </div>
 
@@ -241,7 +243,6 @@ const Slides = () => {
                             >Next</span>
                         </button>
                     </>
-
                     : <></>}
 
             </div>

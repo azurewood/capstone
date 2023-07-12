@@ -7,7 +7,7 @@ import WeatherMap from './weatherMap';
 import { __rst } from '@/app/dataHub';
 
 const Precipitation = (props: any) => {
-    const { state, setState, data, setBusy } = useContext(DataContext);
+    const { state, setState, data, setBusy, setFrame } = useContext(DataContext);
 
     const delay = (ms: number) => new Promise(
         resolve => setTimeout(resolve, ms)
@@ -24,6 +24,10 @@ const Precipitation = (props: any) => {
         // }), 512 * ratio, 723 * ratio);
         setState(4);
         setBusy(1);
+        setFrame(frameCount);
+
+        // setIndex(frameCount);
+        // console.log(frameCount)
 
         weatherMap.setPoints(__rst.map((a: DataType) => {
             const b = { ...a };
@@ -31,9 +35,11 @@ const Precipitation = (props: any) => {
             b.y *= ratio;
             return b;
         }), 512 * ratio, 723 * ratio);
-        weatherMap.drawLow(frameCount, ratio).then(([state, busy]) => {
+        weatherMap.drawLow(frameCount, ratio).then(([state, busy, frame]) => {
             setState(state);
             setBusy(busy);
+            // console.log(state, frame);
+            
         });
         // await delay(5000);
     }

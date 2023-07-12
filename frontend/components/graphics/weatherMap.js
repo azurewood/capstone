@@ -504,7 +504,7 @@ WeatherMap.prototype.drawLow = async function (frame, ratio) {//(limit, res, cle
             // }
 
         }
-        resolve([__temp_img.length === 7 ? 3 : 2, 0]);
+        resolve([__temp_img.length === 7 ? 3 : 2, 0, frame]);
         // setTimeout(this.drawLow, 1000);
     });
 
