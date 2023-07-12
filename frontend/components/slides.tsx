@@ -11,10 +11,11 @@ import Precipitation from "./graphics/precipitation";
 import WeatherMap from "./graphics/weatherMap";
 
 const Slides = () => {
-    const { state, setState, data, setData, busy, setBusy, frame } = useContext(DataContext);
+    const { state, setState, data, setData, busy, setBusy, frame, setFrame } = useContext(DataContext);
 
     useEffect(() => {
         initTE({ Carousel });
+        setFrame(0);
         if (data.length === 0) {
             setState(0);
             get_data().then(data => {

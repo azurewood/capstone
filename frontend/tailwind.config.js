@@ -2,7 +2,7 @@
 
 const plugin = require('tailwindcss/plugin')
 
-const backfaceVisibility = plugin(function({addUtilities}) {
+const backfaceVisibility = plugin(function ({ addUtilities }) {
   addUtilities({
     '.backface-visible': {
       'backface-visibility': 'visible',
@@ -28,14 +28,19 @@ module.exports = {
       mono: ["ui-monospace", "monospace"],
     },
     screens: {
-      'mob': '512px',
+      mob: '512px',
     },
     extend: {
-      colors:{
-        'azure':'#9ecaee',
+      colors: {
+        azure: '#9ecaee',
+      },
+      transitionProperty: {
+        width: 'width',
+        height: 'height',
+        multiple: "width , height , backgroundColor , border-radius"
       },
       width: {
-        'map': '512px',
+        map: '512px',
       },
       backgroundImage: {
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',

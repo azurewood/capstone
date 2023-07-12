@@ -2,35 +2,47 @@
 import {
     Collapse,
     Input,
+    Ripple,
     initTE
 } from "tw-elements";
 import { useEffect, useContext, useState } from "react";
 import { DataContext } from "@/app/dataContext";
+import type { DataType } from "@/app/dataContext";
 import Link from 'next/link';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+// import the icons you need
+import {
+    faHeartCirclePlus
+} from "@fortawesome/free-solid-svg-icons";
+import SearchItem from "./searchItem";
 
 const MyCities = () => {
     const [search, setSearch] = useState('');
-    const { data, setCities } = useContext(DataContext);
+    const { data, cities, setCities } = useContext(DataContext);
+    const [searchResult, setSearchResult] = useState<DataType[]>([]);
 
     useEffect(() => {
-        initTE({ Collapse, Input });
+        initTE({ Collapse, Input, Ripple });
     }, []);
 
+    // let searchResult:DataType[] = [];
     function liveSearch(value: string) {
-        console.log(data.length);
-        setCities(data.filter(a => {
+        // console.log(data.length);
+        setSearchResult([...data.filter(a => {
             // console.log(a.city)
             if (a.city.toLowerCase().includes(value.toLowerCase())) {
                 const b = { ...a };
-                console.log(b.city);
+                // console.log(b.city);
                 return { area: b.area, city: b.city, wc: [...b.wc], x: b.x, y: b.y, temp: [...b.temp], wind: [...b.wind], rain: [...b.rain], snow: [...b.snow], uv: [...b.uv] }
             }
-        }));
+        })]);
 
     }
 
     let typingTimer: any; //add a little bit of delay
     let typeInterval = 500;
+    const searchCollapseEl = document.getElementById('searchCollapse');
+    const searchCollapse = new Collapse(searchCollapseEl)
 
     const handleSearch = (e: any) => {
         setSearch(e.target.value);
@@ -38,7 +50,13 @@ const MyCities = () => {
         if (e.target.value.trim().length > 3) {
             clearTimeout(typingTimer);
             typingTimer = setTimeout(liveSearch, typeInterval, e.target.value.trim());
+            searchCollapse.show();
         }
+        else {
+            setSearchResult([]);
+            searchCollapse.hide();
+        }
+
 
     }
 
@@ -71,6 +89,16 @@ const MyCities = () => {
                     htmlFor="citySearch"
                     className="pointer-events-none absolute left-3 top-0 mb-0 max-w-[90%] origin-[0_0] truncate pt-[0.37rem] leading-[1.6] text-neutral-500 transition-all duration-200 ease-out peer-focus:-translate-y-[0.9rem] peer-focus:scale-[0.8] peer-focus:text-primary peer-data-[te-input-state-active]:-translate-y-[0.9rem] peer-data-[te-input-state-active]:scale-[0.8] motion-reduce:transition-none dark:text-neutral-200 dark:peer-focus:text-primary"
                 >Search</label>
+            </div>
+
+            <div className="!visible hidden mx-3 my-2 space-y-1" id="searchCollapse" data-te-collapse-horizontal data-te-collapse-item>
+                <div
+                    className="block w-[300px] max-w-sm px-2 m-1 space-y-1 rounded-lg bg-white shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] dark:bg-neutral-700 dark:text-neutral-50">
+
+                    {searchResult.map(a =>
+                        <SearchItem key={a.city} city={a.city} area={a.area}></SearchItem>)}
+                </div>
+
             </div>
 
             <div id="accordionExample" className="mx-3 mb-3">
