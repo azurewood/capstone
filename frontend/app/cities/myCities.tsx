@@ -41,12 +41,12 @@ const MyCities = () => {
 
     let typingTimer: any; //add a little bit of delay
     let typeInterval = 500;
-    const searchCollapseEl = document.getElementById('searchCollapse');
-    const searchCollapse = new Collapse(searchCollapseEl)
 
     const handleSearch = (e: any) => {
         setSearch(e.target.value);
         // console.log(e.target.value);
+        const searchCollapseEl = document.getElementById('searchCollapse');
+        const searchCollapse = new Collapse(searchCollapseEl)
         if (e.target.value.trim().length > 3) {
             clearTimeout(typingTimer);
             typingTimer = setTimeout(liveSearch, typeInterval, e.target.value.trim());
