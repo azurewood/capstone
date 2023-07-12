@@ -93,7 +93,7 @@ const MyCities = () => {
 
             <div className="!visible hidden mx-3 my-2 space-y-1" id="searchCollapse" data-te-collapse-horizontal data-te-collapse-item>
                 <div
-                    className="block w-[300px] max-w-sm px-2 m-1 space-y-1 rounded-lg bg-white shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] dark:bg-neutral-700 dark:text-neutral-50">
+                    className="block w-[300px] max-w-sm px-2 m-1 space-y-1 rounded-lg bg-white shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] dark:bg-neutral-700 dark:text-neutral-50 transition-multiple transition-slowest ease">
 
                     {searchResult.map(a =>
                         <SearchItem key={a.city} city={a.city} area={a.area}></SearchItem>)}
