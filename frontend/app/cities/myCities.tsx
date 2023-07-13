@@ -26,7 +26,7 @@ const MyCities = () => {
     const [searchResult, setSearchResult] = useState<DataType[]>([]);
 
     useEffect(() => {
-        initTE({ Input, Collapse });
+        initTE({ Input, Collapse, Ripple });
     }, []);
 
     function liveSearch(value: string) {

@@ -145,7 +145,7 @@ const Navbar = () => {
                   className='text-3xl text-azure-400 hover:text-azure-600 hover:cursor-pointer hover:-translate-y-px'
                 />
               </span>
-              <span>Save Data</span>
+              <span>Save ..</span>
             </a>
           </li>
           <li className="relative">
