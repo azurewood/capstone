@@ -36,28 +36,46 @@ const MyCities = () => {
                 return { area: b.area, city: b.city, wc: [...b.wc], x: b.x, y: b.y, temp: [...b.temp], wind: [...b.wind], rain: [...b.rain], snow: [...b.snow], uv: [...b.uv] }
             }
         })]);
-
     }
 
-    let typingTimer: any; //add a little bit of delay
-    let typeInterval = 500;
+    useEffect(() => {
+        const searchCollapseEl = document.getElementById('searchCollapse');
+        if (searchCollapseEl) {
+            const searchCollapse = new Collapse(searchCollapseEl);
+            // searchCollapse.show();
+            if (search.length > 2) {
+                liveSearch(search);
+                searchCollapse.show();
+            }
+            else {
+                setSearchResult([]);
+                searchCollapse.hide();
+            }
+            // console.log(search);
+        }
+
+    }, [search]);
+
+    // let typingTimer: any; //add a little bit of delay
+    // let typeInterval = 500;
 
     const handleSearch = (e: any) => {
-        setSearch(e.target.value);
+        setSearch(e.target.value.trim());
         // console.log(e.target.value);
-        const searchCollapseEl = document.getElementById('searchCollapse');
-        const searchCollapse = new Collapse(searchCollapseEl)
-        if (e.target.value.trim().length > 3) {
-            clearTimeout(typingTimer);
-            typingTimer = setTimeout(liveSearch, typeInterval, e.target.value.trim());
-            searchCollapse.show();
-        }
-        else {
-            setSearchResult([]);
-            searchCollapse.hide();
-        }
-
-
+        // const searchCollapseEl = document.getElementById('searchCollapse');
+        // if (searchCollapseEl) {
+        //     const searchCollapse = new Collapse(searchCollapseEl)
+        //     if (e.target.value.trim().length > 3) {
+        //         clearTimeout(typingTimer);
+        //         typingTimer = setTimeout(liveSearch, typeInterval, e.target.value.trim());
+        //         console.log(search);
+        //         searchCollapse.show();
+        //     }
+        //     else {
+        //         setSearchResult([]);
+        //         searchCollapse.hide();
+        //     }
+        // }
     }
 
     return (
@@ -93,7 +111,7 @@ const MyCities = () => {
 
             <div className="!visible hidden mx-3 my-2 space-y-1" id="searchCollapse" data-te-collapse-horizontal data-te-collapse-item>
                 <div
-                    className="block w-[300px] max-w-sm px-2 m-1 space-y-1 rounded-lg bg-white shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] dark:bg-neutral-700 dark:text-neutral-50 transition-multiple transition-slowest ease">
+                    className="block w-[350px] max-w-sm px-2 m-1 space-y-1 rounded-lg bg-white shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] dark:bg-neutral-700 dark:text-neutral-50 transition-multiple transition-slowest ease">
 
                     {searchResult.map(a =>
                         <SearchItem key={a.city} city={a.city} area={a.area}></SearchItem>)}

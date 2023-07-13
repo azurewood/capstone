@@ -10,13 +10,58 @@ import {
   faEarthOceania, faCity, faUserAlt, faInfoCircle, faGear
 } from "@fortawesome/free-solid-svg-icons";
 import { DataContext } from "@/app/dataContext";
+import { get_data } from '@/app/dataHub';
+import { __temp_img } from "@/app/dataHub";
 
 const Navbar = () => {
-  const { state, busy } = useContext(DataContext);
+  const { state, setState, busy, setBusy, data, setData, setFrame } = useContext(DataContext);
 
   useEffect(() => {
     initTE({ Sidenav });
   }, []);
+
+  const clearCache = () => {
+    // console.log(data.length);
+    // console.log(__temp_img.length);
+    const sidenav = document.getElementById("sidenav-1");
+    if(sidenav)
+    {
+      const sidenavInstance = new Sidenav(sidenav);
+      sidenavInstance.hide();
+    }
+   
+    while (__temp_img.length > 0) {
+      __temp_img.pop();
+    }
+    // console.log(__temp_img.length);
+
+    setTimeout(() => {
+      
+      setFrame(0);
+      if (data.length === 0) {
+        setState(0);
+        get_data().then(data => {
+          console.log(data.length, state);
+          // setData(data);
+          setData(data.map(a => {
+            const b = { ...a };
+            // console.log(b.city);
+            return { area: b.area, city: b.city, wc: [...b.wc], x: b.x, y: b.y, temp: [...b.temp], wind: [...b.wind], rain: [...b.rain], snow: [...b.snow], uv: [...b.uv] }
+          }));
+        }).catch(err => {
+          console.log("error:", err.message);
+          setState(-2);
+        }).finally(() => {
+          // console.log("end");
+          setState(2);
+          setBusy(1);
+        });
+      }
+
+    }, 100);
+
+
+  }
 
 
   return (
@@ -70,7 +115,7 @@ const Navbar = () => {
             </Link>
           </li>
           <li className="relative">
-            <a
+            <a onClick={clearCache}
               className="flex h-12 cursor-pointer items-center truncate rounded-[5px] px-6 py-4 text-[0.875rem] text-gray-600 outline-none transition duration-300 ease-linear hover:bg-slate-50 hover:text-inherit hover:outline-none focus:bg-slate-50 focus:text-inherit focus:outline-none active:bg-slate-50 active:text-inherit active:outline-none data-[te-sidenav-state-active]:text-inherit data-[te-sidenav-state-focus]:outline-none motion-reduce:transition-none dark:text-gray-300 dark:hover:bg-white/10 dark:focus:bg-white/10 dark:active:bg-white/10"
               data-te-sidenav-link-ref>
               <span
