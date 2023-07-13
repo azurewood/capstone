@@ -15,17 +15,17 @@ import {
     faHeartCirclePlus
 } from "@fortawesome/free-solid-svg-icons";
 import SearchItem from "./searchItem";
+import CityItem from "./cityItem";
 
 const MyCities = () => {
     const [search, setSearch] = useState('');
-    const { data, cities, setCities } = useContext(DataContext);
+    const { data, cities } = useContext(DataContext);
     const [searchResult, setSearchResult] = useState<DataType[]>([]);
 
     useEffect(() => {
-        initTE({ Collapse, Input, Ripple });
+        initTE({ Input, Collapse });
     }, []);
 
-    // let searchResult:DataType[] = [];
     function liveSearch(value: string) {
         // console.log(data.length);
         setSearchResult([...data.filter(a => {
@@ -39,28 +39,46 @@ const MyCities = () => {
     }
 
     useEffect(() => {
+        // const searchCollapseEl = document.getElementById('searchCollapse');
+        // if (searchCollapseEl) {
+        //     const searchCollapse = new Collapse(searchCollapseEl);
+        //     searchCollapse.show();
+
+        if (search.length > 2) {
+            liveSearch(search);
+            // searchCollapse.show();
+
+            // searchCollapseEl.classList.remove("hidden");
+            // searchCollapseEl.classList.add("!visible","h-px", "w-px");
+        }
+        else {
+            setSearchResult([]);
+            // searchCollapseEl.classList.add("hidden");
+            // searchCollapse.hide();
+        }
+
+        // console.log(search);
+        // }
+
+
+    }, [search]);
+
+
+    useEffect(() => {
         const searchCollapseEl = document.getElementById('searchCollapse');
         if (searchCollapseEl) {
             const searchCollapse = new Collapse(searchCollapseEl);
-            // searchCollapse.show();
-            if (search.length > 2) {
-                liveSearch(search);
-                searchCollapse.show();
-            }
-            else {
-                setSearchResult([]);
-                searchCollapse.hide();
-            }
-            // console.log(search);
+            searchCollapse.show();
         }
 
-    }, [search]);
+    }, [searchResult]);
+
 
     // let typingTimer: any; //add a little bit of delay
     // let typeInterval = 500;
 
     const handleSearch = (e: any) => {
-        setSearch(e.target.value.trim());
+        setSearch(e.target.value.replace(/^\s+/, ''));
         // console.log(e.target.value);
         // const searchCollapseEl = document.getElementById('searchCollapse');
         // if (searchCollapseEl) {
@@ -109,66 +127,20 @@ const MyCities = () => {
                 >Search</label>
             </div>
 
-            <div className="!visible hidden mx-3 my-2 space-y-1" id="searchCollapse" data-te-collapse-horizontal data-te-collapse-item>
+            <div className="!visible hidden mx-3 my-2 space-y-1 transition-multiple duration-300 transition-slowest ease" id="searchCollapse"
+                data-te-collapse-item
+                data-te-collapse-horizontal>
                 <div
-                    className="block w-[350px] max-w-sm px-2 m-1 space-y-1 rounded-lg bg-white shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] dark:bg-neutral-700 dark:text-neutral-50 transition-multiple transition-slowest ease">
+                    className="block w-[350px] max-w-sm px-2 m-1 space-y-1 rounded-lg bg-white shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] dark:bg-neutral-700 dark:text-neutral-50">
 
                     {searchResult.map(a =>
-                        <SearchItem key={a.city} city={a.city} area={a.area}></SearchItem>)}
+                        <SearchItem key={a.city.replace(/\s+/, '') +"-search-result"} data={a}></SearchItem>)}
                 </div>
 
             </div>
 
-            <div id="accordionExample" className="mx-3 mb-3">
-                <div
-                    className="rounded-t-lg border border-neutral-200 bg-white dark:border-neutral-600 dark:bg-neutral-800">
-                    <h2 className="mb-0" id="headingOne">
-                        <button
-                            className="group relative flex w-full items-center rounded-t-[15px] border-0 bg-white px-5 py-4 text-left text-base text-neutral-800 transition [overflow-anchor:none] hover:z-[2] focus:z-[3] focus:outline-none dark:bg-neutral-800 dark:text-white [&:not([data-te-collapse-collapsed])]:bg-white [&:not([data-te-collapse-collapsed])]:text-primary [&:not([data-te-collapse-collapsed])]:[box-shadow:inset_0_-1px_0_rgba(229,231,235)] dark:[&:not([data-te-collapse-collapsed])]:bg-neutral-800 dark:[&:not([data-te-collapse-collapsed])]:text-primary-400 dark:[&:not([data-te-collapse-collapsed])]:[box-shadow:inset_0_-1px_0_rgba(75,85,99)]"
-                            type="button"
-                            data-te-collapse-init
-                            data-te-target="#collapseOne"
-                            aria-expanded="true"
-                            aria-controls="collapseOne">
-                            Accordion Item #1
-                            <span
-                                className="ml-auto h-5 w-5 shrink-0 rotate-[-180deg] fill-[#336dec] transition-transform duration-200 ease-in-out group-[[data-te-collapse-collapsed]]:rotate-0 group-[[data-te-collapse-collapsed]]:fill-[#212529] motion-reduce:transition-none dark:fill-blue-300 dark:group-[[data-te-collapse-collapsed]]:fill-white">
-                                <svg
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    fill="none"
-                                    viewBox="0 0 24 24"
-                                    strokeWidth="1.5"
-                                    stroke="currentColor"
-                                    className="h-6 w-6">
-                                    <path
-                                        strokeLinecap="round"
-                                        strokeLinejoin="round"
-                                        d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
-                                </svg>
-                            </span>
-                        </button>
-                    </h2>
-                    <div
-                        id="collapseOne"
-                        className="!visible"
-                        data-te-collapse-item
-                        data-te-collapse-show
-                        aria-labelledby="headingOne"
-                        data-te-parent="#accordionExample">
-                        <div className="px-5 py-4">
-                            <strong>This is the first item's accordion body.</strong> It is
-                            shown by default, until the collapse plugin adds the appropriate
-                            classNamees that we use to style each element. These classNamees control
-                            the overall appearance, as well as the showing and hiding via CSS
-                            transitions. You can modify any of this with custom CSS or
-                            overriding our default variables. It's also worth noting that just
-                            about any HTML can go within the <code>.accordion-body</code>,
-                            though the transition does limit overflow.
-                        </div>
-                    </div>
-                </div>
-
-
+            <div id="accordion-cities" className="mx-3 mb-3">
+                {cities.map(a=><CityItem key={a.city.replace(/\s+/, '') + "-accordian"}  data={a}></CityItem>)}
             </div>
         </>
     )

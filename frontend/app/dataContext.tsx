@@ -4,29 +4,31 @@ import { createContext, useState, Dispatch, SetStateAction } from "react";
 
 
 export interface DataType { // __rst.push({ x: x, y: y, temp: v, wind: w, rain: r, snow: s, uv: u });
-  area: string;
-  city: string;
-  wc: [];
-  x: number;
-  y: number;
-  temp: [];
-  wind: [];
-  rain: [];
-  snow: [];
-  uv: [];
+  area: string,
+  city: string,
+  wc: number[],
+  x: number,
+  y: number,
+  temp: number[],
+  wind: number[],
+  rain: number[],
+  snow: number[],
+  uv: number[],
 }
 
 export interface DataContextType {
   state: number,
-  setState: Dispatch<SetStateAction<number>>;
-  data: DataType[];
-  setData: Dispatch<SetStateAction<DataType[]>>;
-  cities: DataType[];
-  setCities: Dispatch<SetStateAction<DataType[]>>;
+  setState: Dispatch<SetStateAction<number>>,
+  data: DataType[],
+  setData: Dispatch<SetStateAction<DataType[]>>,
+  cities: DataType[],
+  setCities: Dispatch<SetStateAction<DataType[]>>,
   busy: number,
-  setBusy: Dispatch<SetStateAction<number>>;
+  setBusy: Dispatch<SetStateAction<number>>,
   frame: number,
-  setFrame: Dispatch<SetStateAction<number>>;
+  setFrame: Dispatch<SetStateAction<number>>,
+  homeCity: string,
+  setHomeCity: Dispatch<SetStateAction<string>>,
 }
 
 const DataContext = createContext<DataContextType>({
@@ -40,6 +42,8 @@ const DataContext = createContext<DataContextType>({
   setBusy: () => 0,
   frame: 0,  // 
   setFrame: () => 0,
+  homeCity: "",
+  setHomeCity: () => "",
 });
 
 const DataContextProvider = ({ children }: {
@@ -50,10 +54,11 @@ const DataContextProvider = ({ children }: {
   const [cities, setCities] = useState<DataType[]>([]);
   const [busy, setBusy] = useState<number>(0);
   const [frame, setFrame] = useState<number>(0);
+  const [homeCity, setHomeCity] = useState<string>("");
 
 
   return (
-    <DataContext.Provider value={{ state, setState, data, setData, cities, setCities, busy, setBusy, frame, setFrame}}>
+    <DataContext.Provider value={{ state, setState, data, setData, cities, setCities, busy, setBusy, frame, setFrame, homeCity, setHomeCity }}>
       {children}
     </DataContext.Provider>
   );

@@ -11,10 +11,22 @@ import Precipitation from "./graphics/precipitation";
 import WeatherMap from "./graphics/weatherMap";
 
 const Slides = () => {
-    const { state, setState, data, setData, busy, setBusy, frame, setFrame } = useContext(DataContext);
+    const { state, setState, data, setData, busy, setBusy, frame, setFrame, setHomeCity, setCities } = useContext(DataContext);
 
     useEffect(() => {
         initTE({ Carousel });
+        let newObject = window.localStorage.getItem("homeCity");
+        if(newObject){
+            setHomeCity(JSON.parse(newObject));
+            // console.log(JSON.parse(newObject));
+        }
+        newObject = window.localStorage.getItem("cities");
+        if(newObject){
+            setCities(JSON.parse(newObject));
+            // console.log(JSON.parse(newObject));
+        }
+
+
         setFrame(0);
         if (data.length === 0) {
             setState(0);

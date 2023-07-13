@@ -7,36 +7,55 @@ import Link from 'next/link';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 // import the icons you need
 import {
-  faEarthOceania, faCity, faUserAlt, faInfoCircle, faGear
+  faEarthOceania, faCity, faUserAlt, faInfoCircle, faHardDrive, faGear
 } from "@fortawesome/free-solid-svg-icons";
 import { DataContext } from "@/app/dataContext";
 import { get_data } from '@/app/dataHub';
 import { __temp_img } from "@/app/dataHub";
 
 const Navbar = () => {
-  const { state, setState, busy, setBusy, data, setData, setFrame } = useContext(DataContext);
+  const { state, setState, busy, setBusy, data, setData, setFrame, homeCity, cities } = useContext(DataContext);
 
   useEffect(() => {
     initTE({ Sidenav });
   }, []);
 
+  const saveData = () => {
+    // console.log(data.length);
+    // console.log(__temp_img.length);
+    const sidenav = document.getElementById("sidenav-1");
+    if (sidenav) {
+      const sidenavInstance = new Sidenav(sidenav);
+      sidenavInstance.hide();
+    }
+
+
+    // console.log(__temp_img.length);
+
+    setTimeout(() => {
+      localStorage.setItem("homeCity", JSON.stringify(homeCity));
+      localStorage.setItem("cities", JSON.stringify(cities));
+    }, 100);
+
+  }
+
+
   const clearCache = () => {
     // console.log(data.length);
     // console.log(__temp_img.length);
     const sidenav = document.getElementById("sidenav-1");
-    if(sidenav)
-    {
+    if (sidenav) {
       const sidenavInstance = new Sidenav(sidenav);
       sidenavInstance.hide();
     }
-   
-    while (__temp_img.length > 0) {
-      __temp_img.pop();
-    }
+
+
     // console.log(__temp_img.length);
 
     setTimeout(() => {
-      
+      while (__temp_img.length > 0) {
+        __temp_img.pop();
+      }
       setFrame(0);
       if (data.length === 0) {
         setState(0);
@@ -113,6 +132,20 @@ const Navbar = () => {
               </span>
               <span>My Cities</span>
             </Link>
+          </li>
+          <li className="relative">
+            <a onClick={saveData}
+              className="flex h-12 cursor-pointer items-center truncate rounded-[5px] px-6 py-4 text-[0.875rem] text-gray-600 outline-none transition duration-300 ease-linear hover:bg-slate-50 hover:text-inherit hover:outline-none focus:bg-slate-50 focus:text-inherit focus:outline-none active:bg-slate-50 active:text-inherit active:outline-none data-[te-sidenav-state-active]:text-inherit data-[te-sidenav-state-focus]:outline-none motion-reduce:transition-none dark:text-gray-300 dark:hover:bg-white/10 dark:focus:bg-white/10 dark:active:bg-white/10"
+              data-te-sidenav-link-ref>
+              <span
+                className="mr-4 [&>svg]:h-4 [&>svg]:w-4 [&>svg]:text-gray-400 dark:[&>svg]:text-gray-300">
+                <FontAwesomeIcon
+                  icon={faHardDrive}
+                  className='text-3xl text-azure-400 hover:text-azure-600 hover:cursor-pointer hover:-translate-y-px'
+                />
+              </span>
+              <span>Save Data</span>
+            </a>
           </li>
           <li className="relative">
             <a onClick={clearCache}
