@@ -9,19 +9,24 @@ import { get_data } from '@/app/dataHub';
 import { DataContext } from "@/app/dataContext";
 import Precipitation from "./graphics/precipitation";
 import WeatherMap from "./graphics/weatherMap";
+import dynamic from 'next/dynamic'
+import type { DataType } from "@/app/dataContext";
+import WIcon from "./weather/icons";
+const MyCity = dynamic(() => import("./weather/myCity"), { ssr: false });
 
 const Slides = () => {
-    const { state, setState, data, setData, busy, setBusy, frame, setFrame, setHomeCity, setCities } = useContext(DataContext);
+    const { state, setState, data, setData, busy, setBusy, frame, setFrame, homeCity, setHomeCity, cities, setCities } = useContext(DataContext);
+    const [cityData, setCityData] = useState<DataType>();
 
     useEffect(() => {
         initTE({ Carousel });
         let newObject = window.localStorage.getItem("homeCity");
-        if(newObject){
+        if (newObject) {
             setHomeCity(JSON.parse(newObject));
             // console.log(JSON.parse(newObject));
         }
         newObject = window.localStorage.getItem("cities");
-        if(newObject){
+        if (newObject) {
             setCities(JSON.parse(newObject));
             // console.log(JSON.parse(newObject));
         }
@@ -35,6 +40,8 @@ const Slides = () => {
                 // setData(data);
                 setData(data.map(a => {
                     const b = { ...a };
+                    if (b.city === homeCity)
+                        setCityData({ area: b.area, city: b.city, wc: [...b.wc], x: b.x, y: b.y, temp: [...b.temp], wind: [...b.wind], rain: [...b.rain], snow: [...b.snow], uv: [...b.uv] });
                     // console.log(b.city);
                     return { area: b.area, city: b.city, wc: [...b.wc], x: b.x, y: b.y, temp: [...b.temp], wind: [...b.wind], rain: [...b.rain], snow: [...b.snow], uv: [...b.uv] }
                 }));
@@ -49,6 +56,27 @@ const Slides = () => {
         }
 
     }, []);
+
+    useEffect(() => {
+        // console.log(homeCity);
+        setTimeout(() => {
+            localStorage.setItem("homeCity", JSON.stringify(homeCity));
+        }, 100);
+    }, [homeCity]);
+
+    useEffect(() => {
+        // console.log(homeCity);
+        localStorage.setItem("cities", JSON.stringify(cities));
+    }, [cities]);
+
+    useEffect(() => {
+        // console.log(homeCity);
+        data.forEach(a => {
+            const b = { ...a };
+            if (b.city === homeCity)
+                setCityData({ area: b.area, city: b.city, wc: [...b.wc], x: b.x, y: b.y, temp: [...b.temp], wind: [...b.wind], rain: [...b.rain], snow: [...b.snow], uv: [...b.uv] });
+        });
+    }, [data]);
 
     const draw = (weatherMap: WeatherMap, frameCount: number, ratio: number) => {
         // console.log(ratio,weatherMap.ctx.canvas.height);
@@ -156,6 +184,7 @@ const Slides = () => {
                                     <p>Some representative placeholder content for the first slide.</p>
                                 </div> */}
                                 {/* {frame} */}
+                              {/* {cities.map(a=><WIcon wc={a.wc[frame]} x={(a.x*0.7).toFixed(0)} y={(a.y*0.7).toFixed(0)} z={1}></WIcon>)} */}
                             </div>
                             {/* <!--Second item--> */}
                             <div
@@ -165,6 +194,10 @@ const Slides = () => {
                                     src="azure.png"
                                     className="block w-full -z-10"
                                     alt="..." />
+                                <div className="absolute top-0 left-0 -z-0">
+                                    <MyCity data={cityData}></MyCity>
+                                </div>
+
                                 {/* <div
                                     className="absolute inset-x-[15%] bottom-5 hidden py-5 text-center text-white md:block">
                                     <h5 className="text-xl">Second slide label</h5>

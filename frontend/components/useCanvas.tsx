@@ -4,7 +4,8 @@ import { DataContext } from "@/app/dataContext";
 import { setFips } from 'crypto';
 
 const useCanvas = (draw: any, type: number = 1) => {
-    const { frame, setFrame } = useContext(DataContext);
+    // const { frame, setFrame } = useContext(DataContext);
+    let frameCount=0;
 
     const canvasRef = useRef(null)
 
@@ -41,7 +42,7 @@ const useCanvas = (draw: any, type: number = 1) => {
         const weatherMap = new WeatherMap(context);
         if (!context)
             return;
-        let frameCount = frame;
+        // let frameCount = 0; //frame;
         let animationFrameId: number
         let start: number, previousTimeStamp: number | undefined = undefined
 

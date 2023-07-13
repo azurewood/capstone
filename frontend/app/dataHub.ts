@@ -126,7 +126,7 @@ const fetch_data = function (area: string) {
 
                                 [0, 1, 2, 3, 4, 5, 6].forEach(idx => {
                                     tmp = (parseFloat(element.daily.temperature_2m_max[idx]) + parseFloat(element.daily.temperature_2m_min[idx])) / 2;
-                                    v.push(tmp);
+                                    v.push(tmp.toFixed(0));
                                     // if (isNaN(_max_temp) || tmp > _max_temp)
                                     //     _max_temp = tmp;
                                     // if (isNaN(_min_temp) || tmp < _min_temp)
@@ -210,4 +210,4 @@ const get_data = async function () {
 
 }
 
-export { __dayNames, __scale, __areas, get_data, __day, __temp_img, __rst }
+export { __dayNames, __scale, __areas, get_data, __date, __day, __temp_img, __rst }
