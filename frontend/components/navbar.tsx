@@ -1,5 +1,6 @@
 import {
   Sidenav,
+  Ripple,
   initTE
 } from "tw-elements";
 import { useEffect, useState, useContext } from "react";
@@ -17,7 +18,7 @@ const Navbar = () => {
   const { state, setState, busy, setBusy, data, setData, setFrame, homeCity, cities } = useContext(DataContext);
 
   useEffect(() => {
-    initTE({ Sidenav });
+    initTE({ Sidenav, Ripple });
   }, []);
 
   const saveData = () => {
@@ -97,7 +98,7 @@ const Navbar = () => {
           className="mb-3 flex items-center justify-center border-b-2 border-solid border-gray-100 py-6 outline-none"
           href="#!"
           data-te-ripple-init
-          data-te-ripple-color="primary">
+          data-te-ripple-color="azure">
           <img
             id="te-logo"
             className="mr-2 w-6"
