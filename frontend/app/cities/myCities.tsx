@@ -9,13 +9,16 @@ import { useEffect, useContext, useState } from "react";
 import { DataContext } from "@/app/dataContext";
 import type { DataType } from "@/app/dataContext";
 import Link from 'next/link';
+import dynamic from 'next/dynamic'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 // import the icons you need
 import {
     faHeartCirclePlus
 } from "@fortawesome/free-solid-svg-icons";
-import SearchItem from "./searchItem";
-import CityItem from "./cityItem";
+// import SearchItem from "./searchItem";
+// import CityItem from "./cityItem";
+const SearchItem = dynamic(() => import("./searchItem"), { ssr: false });
+const CityItem = dynamic(() => import("./cityItem"), { ssr: false });
 
 const MyCities = () => {
     const [search, setSearch] = useState('');
