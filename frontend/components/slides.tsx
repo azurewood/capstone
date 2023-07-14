@@ -191,7 +191,7 @@ const Slides = () => {
                              alt="..." onContextMenu={handleContextMenu} /> */}
                                 <div ref={ref} className="relative">
                                     <img src="map_nz.png" className="block w-full z-0" onContextMenu={handleContextMenu} />
-                                    {cities.map(a=><WIcon wc={a.wc[0]>a.wc[1]?a.wc[0]:a.wc[1]} x={(a.x*ratio).toFixed(0)} y={(a.y*ratio).toFixed(0)} z={1}></WIcon>)}
+                                    {cities.map(a=><WIcon key={a.city+"-"+a.area+"-icon"} wc={a.wc[0]>a.wc[1]?a.wc[0]:a.wc[1]} x={(a.x*ratio).toFixed(0)} y={(a.y*ratio).toFixed(0)} z={1}></WIcon>)}
                                 </div>
                                 {/* <div
                                     className="absolute inset-x-[15%] bottom-5 hidden py-5 text-center text-white md:block">
