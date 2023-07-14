@@ -49,7 +49,9 @@ const MyCharts = ({ data }: { data: DataType | undefined }) => {
             instance.dispose();
 
         if (data?.wind && data?.temp) {
-            document.getElementById('wind-radar-container').innerHTML = '<canvas id="wind-radar-chart"></canvas>';
+            const ele = document.getElementById('wind-radar-container');
+            if (ele)
+                ele.innerHTML = '<canvas id="wind-radar-chart"></canvas>';
 
             new Chart(document.getElementById('wind-radar-chart'), windRadar);
         }
@@ -85,7 +87,9 @@ const MyCharts = ({ data }: { data: DataType | undefined }) => {
             instance.dispose();
 
         if (data?.rain && data?.snow) {
-            document.getElementById('rain-snow-container').innerHTML = '<canvas id="rain-snow-chart"></canvas>';
+            const ele = document.getElementById('rain-snow-container');
+            if (ele)
+                ele.innerHTML = '<canvas id="rain-snow-chart"></canvas>';
 
             new Chart(document.getElementById('rain-snow-chart'), rainBar);
         }
@@ -121,7 +125,9 @@ const MyCharts = ({ data }: { data: DataType | undefined }) => {
             instance.dispose();
 
         if (data?.temp && data?.uv) {
-            document.getElementById('temp-uv-container').innerHTML = '<canvas id="temp-uv-chart"></canvas>';
+            const ele = document.getElementById('temp-uv-container');
+            if (ele)
+                ele.innerHTML = '<canvas id="temp-uv-chart"></canvas>';
 
             new Chart(document.getElementById('temp-uv-chart'), tempLine);
         }
