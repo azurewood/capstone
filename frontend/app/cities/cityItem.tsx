@@ -61,7 +61,7 @@ const CityItem = ({ data }: { data: DataType }) => {
                     type="button"
                     data-te-collapse-init
                     data-te-target={"#" + data.city.replace(/\s+/, '') + "-collapse"}
-                    aria-expanded="true"
+                    aria-expanded="false"
                     aria-controls={data.city.replace(/\s+/, '') + "-collapse"}>
                     {data.city}
                     {data.city === homeCity ? <FontAwesomeIcon
@@ -90,7 +90,6 @@ const CityItem = ({ data }: { data: DataType }) => {
                 id={data.city.replace(/\s+/, '') + "-collapse"}
                 className="!visible"
                 data-te-collapse-item
-                data-te-collapse-show
                 aria-labelledby={data.city.replace(/\s+/, '') + "-heading"}
                 data-te-parent="#accordion-cities">
                 <div className="px-5 py-4">

@@ -1,5 +1,5 @@
 import { PiCloudRainThin, PiCloudRain, PiCloudRainBold, PiCloud, PiCloudBold, PiCloudFogThin, PiCloudFog, PiCloudFogDuotone } from "react-icons/pi"
-import { CiCloudDrizzle } from "react-icons/ci"
+import { CiCloudDrizzle, CiNoWaitingSign } from "react-icons/ci"
 import { RiDrizzleLine } from "react-icons/ri"
 import { LuCloudDrizzle } from "react-icons/lu"
 import { BsCloudDrizzle, BsCloudDrizzleFill } from "react-icons/bs"
@@ -15,7 +15,7 @@ import { PiSnowflakeThin, PiSnowflake, PiSnowflakeBold } from "react-icons/pi"
 
 
 
-function WIcon({ wc, x, y, z }: { wc: number | undefined; x?: string | undefined; y?: string | undefined; z?: number | undefined} ) {
+function WIcon({ wc, x, y, z }: { wc: number | undefined; x?: string | undefined; y?: string | undefined; z?: number | undefined }) {
 
     function get_wc_icon() {
         switch (wc) {
@@ -75,6 +75,8 @@ function WIcon({ wc, x, y, z }: { wc: number | undefined; x?: string | undefined
                 return <IoThunderstormSharp />
             case 99:
                 return <IoThunderstormSharp />
+            case 101:
+                return <CiNoWaitingSign />
             default:
                 return <></>
 
@@ -83,7 +85,7 @@ function WIcon({ wc, x, y, z }: { wc: number | undefined; x?: string | undefined
 
 
     return (
-        <div className={z === undefined ? "" : "absolute z-" + z + " opacity-80 text-lg font-bold"} style={{left:x+"px", top:y+"px"}}>
+        <div className={z === undefined ? "" : "absolute z-" + z + " opacity-90 text-lg font-bold text-indigo-600"} style={{ left: x + "px", top: y + "px" }}>
             {get_wc_icon()}
         </div>
     )
