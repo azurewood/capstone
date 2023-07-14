@@ -83,7 +83,7 @@ function WIcon({ wc, x, y, z }: { wc: number | undefined; x?: string | undefined
 
 
     return (
-        <div className={z === undefined ? "" : "absolute z-" + z + " opacity-80"} style={{left:x+"px", top:y+"px"}}>
+        <div className={z === undefined ? "" : "absolute z-" + z + " opacity-80 text-lg font-bold"} style={{left:x+"px", top:y+"px"}}>
             {get_wc_icon()}
         </div>
     )
