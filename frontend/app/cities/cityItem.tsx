@@ -88,7 +88,7 @@ const CityItem = ({ data }: { data: DataType }) => {
             </h2>
             <div
                 id={data.city.replace(/\s+/, '') + "-collapse"}
-                className="!visible"
+                className="!visible hidden"
                 data-te-collapse-item
                 aria-labelledby={data.city.replace(/\s+/, '') + "-heading"}
                 data-te-parent="#accordion-cities">

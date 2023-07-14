@@ -192,7 +192,7 @@ const Slides = () => {
                                 <div ref={ref} className="relative">
                                     <img src="map_nz.png" className="block w-full z-0" onContextMenu={handleContextMenu} />
                                     {busy > 0 ? <WIcon wc={101} x={(84 * ratio).toFixed(0)} y={(137* ratio).toFixed(0)} z={1}></WIcon> : <></>}
-                                    <div className="absolute z-1 opacity-90 text-sm font-semibold text-indigo-600" style={{ left: (385 * ratio).toFixed(0) + "px", top: (550 * ratio).toFixed(0) + "px" }}>
+                                    <div className="absolute z-1 opacity-90 text-xs font-semibold text-indigo-600" style={{ left: (380 * ratio).toFixed(0) + "px", top: (550 * ratio).toFixed(0) + "px" }}>
                                         {(state == 2 || state == 4) ? "Processing.." : state < 0 ? "Error!" : ""}
                                     </div>
                                     {cities.map(a => <WIcon key={a.city + "-" + a.area + "-icon"} wc={a.wc[0] > a.wc[1] ? a.wc[0] : a.wc[1]} x={(a.x * ratio).toFixed(0)} y={(a.y * ratio).toFixed(0)} z={1}></WIcon>)}
