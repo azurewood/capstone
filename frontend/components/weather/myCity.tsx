@@ -13,7 +13,7 @@ import WIcon from "./icons";
 
 
 const MyCity = ({ data }: { data: DataType | undefined }) => {
-    const { cities, setCities, homeCity, setHomeCity } = useContext(DataContext);
+    // const { cities, setCities, homeCity, setHomeCity } = useContext(DataContext);
 
     useEffect(() => {
         // initTE({ Collapse, Ripple });
