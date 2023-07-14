@@ -1,4 +1,4 @@
-import React, { useEffect, useContext } from 'react';
+import React, { useEffect, useContext, useState } from 'react';
 import useCanvas from '../useCanvas';
 import { DataContext } from "@/app/dataContext";
 import type { DataType } from '@/app/dataContext';
@@ -8,6 +8,7 @@ import { __rst } from '@/app/dataHub';
 
 const Precipitation = (props: any) => {
     const { state, setState, data, setBusy, frame, setFrame } = useContext(DataContext);
+    const [index, setIndex] = useState(0);
 
     const delay = (ms: number) => new Promise(
         resolve => setTimeout(resolve, ms)
@@ -36,14 +37,21 @@ const Precipitation = (props: any) => {
             return b;
         }), 512 * ratio, 723 * ratio);
         // setFrame(frameCount);
-        weatherMap.drawLow(frameCount, ratio).then(([state, busy, index]) => {
-            setState(state);
-            setBusy(busy);
-            // setFrame(frame);
-            // console.log(state, busy, index, frame);
-            // setFrame(index);
-            
-        });
+        // console.log(frameCount, index, frame);
+        if (1){//frameCount === (index + 1) || frameCount === 0) {
+            // if(frameCount>0)
+            // setFrame(frameCount);
+            // setIndex(frameCount);
+            // setFrame(frameCount);
+            weatherMap.drawLow(frameCount, ratio).then(([state, busy, i]) => {
+                setState(state);
+                setBusy(busy);
+                // setFrame(i);
+                // console.log(state, busy, index, frame);
+                // setIndex(frameCount);
+
+            });
+        }
         // await delay(5000);
     }
 

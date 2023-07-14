@@ -25,6 +25,9 @@ const Slides = () => {
             setHomeCity(JSON.parse(newObject));
             // console.log(JSON.parse(newObject));
         }
+        else
+            setHomeCity("Wellington");
+            
         newObject = window.localStorage.getItem("cities");
         if (newObject) {
             setCities(JSON.parse(newObject));

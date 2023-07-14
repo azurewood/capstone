@@ -3,9 +3,11 @@ import WeatherMap from './graphics/weatherMap';
 import { DataContext } from "@/app/dataContext";
 import { setFips } from 'crypto';
 
+let frameCount=-1;
+let start: number, previousTimeStamp: number | undefined = undefined
 const useCanvas = (draw: any, type: number = 1) => {
     // const { frame, setFrame } = useContext(DataContext);
-    let frameCount=0;
+    
 
     const canvasRef = useRef(null)
 
@@ -44,11 +46,11 @@ const useCanvas = (draw: any, type: number = 1) => {
             return;
         // let frameCount = 0; //frame;
         let animationFrameId: number
-        let start: number, previousTimeStamp: number | undefined = undefined
+        // let start: number, previousTimeStamp: number | undefined = undefined
 
         //Our draw came here
 
-        const render = (timeStamp: number) => {
+        const render = async (timeStamp: number) => {
             // frameCount++
             if (start === undefined) {
                 start = timeStamp;
@@ -61,24 +63,27 @@ const useCanvas = (draw: any, type: number = 1) => {
                     context.canvas.width = width;
                     weatherMap.size.width = width;
                     weatherMap.size.height = height;
-                    draw(weatherMap, frameCount, ratio);
                     ++frameCount;
-
+                    await draw(weatherMap, frameCount, ratio);
                 }
                 else {
-                    if (frameCount >= 0 && frameCount < 7) {
-                        if (previousTimeStamp === undefined || (timeStamp - previousTimeStamp) > (frameCount === 0 ? 3000 : 1500)) {
+                    if (frameCount >= -1 && frameCount < 6) {
+                        // timeStamp;
+                        // console.log(timeStamp - previousTimeStamp, timeStamp);
+                        if (previousTimeStamp === undefined || (timeStamp - previousTimeStamp) > (frameCount === -1 ? 4000 : 2000)) {
                             previousTimeStamp = timeStamp;
                             context.canvas.height = height;
                             context.canvas.width = width;
                             weatherMap.size.width = width;
                             weatherMap.size.height = height;
-                            draw(weatherMap, frameCount, ratio);
+                            // console.log(frameCount);
                             ++frameCount;
+                            await draw(weatherMap, frameCount, ratio);
+                            
                         }
 
                     }
-                    else if (frameCount > 6 || frameCount < 0) {
+                    else if (frameCount > 5 || frameCount < -1) {
                         ++frameCount;
                         if (frameCount > 400)
                             frameCount = -100;
