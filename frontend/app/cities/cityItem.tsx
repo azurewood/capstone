@@ -21,6 +21,18 @@ const CityItem = ({ data }: { data: DataType }) => {
         initTE({ Collapse, Ripple });
     }, []);
 
+    useEffect(() => {
+        // console.log(homeCity);
+        setTimeout(() => {
+            localStorage.setItem("homeCity", JSON.stringify(homeCity));
+        }, 100);
+    }, [homeCity]);
+
+    useEffect(() => {
+        // console.log(homeCity);
+        localStorage.setItem("cities", JSON.stringify(cities));
+    }, [cities]);
+
     const handleSetHome = () => {
         setHomeCity(data.city);
     }

@@ -3,7 +3,7 @@ import {
     Carousel,
     initTE
 } from "tw-elements";
-import { useEffect, useContext, useState } from "react";
+import { useEffect, useContext, useState, useRef } from "react";
 import Canvas from "./canvas";
 import { get_data } from '@/app/dataHub';
 import { DataContext } from "@/app/dataContext";
@@ -17,6 +17,8 @@ const MyCity = dynamic(() => import("./weather/myCity"), { ssr: false });
 const Slides = () => {
     const { state, setState, data, setData, busy, setBusy, frame, setFrame, homeCity, setHomeCity, cities, setCities } = useContext(DataContext);
     const [cityData, setCityData] = useState<DataType>();
+    const ref = useRef<HTMLDivElement>(null)
+    const [ratio, setRatio] = useState(1)
 
     useEffect(() => {
         initTE({ Carousel });
@@ -27,7 +29,7 @@ const Slides = () => {
         }
         else
             setHomeCity("Wellington");
-            
+
         newObject = window.localStorage.getItem("cities");
         if (newObject) {
             setCities(JSON.parse(newObject));
@@ -58,6 +60,7 @@ const Slides = () => {
             });
         }
 
+        // console.log(data.length);
     }, []);
 
     useEffect(() => {
@@ -80,6 +83,12 @@ const Slides = () => {
                 setCityData({ area: b.area, city: b.city, wc: [...b.wc], x: b.x, y: b.y, temp: [...b.temp], wind: [...b.wind], rain: [...b.rain], snow: [...b.snow], uv: [...b.uv] });
         });
     }, [data]);
+
+    useEffect(() => {
+        if (ref.current)
+            setRatio(ref.current?.clientWidth / 512);
+        // console.log(ref.current?.clientWidth);
+    });
 
     const draw = (weatherMap: WeatherMap, frameCount: number, ratio: number) => {
         // console.log(ratio,weatherMap.ctx.canvas.height);
@@ -180,14 +189,17 @@ const Slides = () => {
                              src="azure.png"
                              className="block w-full -z-30 absolute top-0 left-0 opacity-40"
                              alt="..." onContextMenu={handleContextMenu} /> */}
-                                <img src="map_nz.png" className="block w-full z-0" onContextMenu={handleContextMenu} />
+                                <div ref={ref} className="relative">
+                                    <img src="map_nz.png" className="block w-full z-0" onContextMenu={handleContextMenu} />
+                                    {cities.map(a=><WIcon wc={a.wc[0]>a.wc[1]?a.wc[0]:a.wc[1]} x={(a.x*ratio).toFixed(0)} y={(a.y*ratio).toFixed(0)} z={1}></WIcon>)}
+                                </div>
                                 {/* <div
                                     className="absolute inset-x-[15%] bottom-5 hidden py-5 text-center text-white md:block">
                                     <h5 className="text-xl">First slide label</h5>
                                     <p>Some representative placeholder content for the first slide.</p>
                                 </div> */}
                                 {/* {frame} */}
-                              {/* {cities.map(a=><WIcon wc={a.wc[frame]} x={(a.x*0.7).toFixed(0)} y={(a.y*0.7).toFixed(0)} z={1}></WIcon>)} */}
+                                
                             </div>
                             {/* <!--Second item--> */}
                             <div
