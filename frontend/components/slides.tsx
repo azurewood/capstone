@@ -91,6 +91,16 @@ const Slides = () => {
         // console.log(ref.current?.clientWidth);
     });
 
+    useEffect(() => {
+        if (state !== 3) {
+            const myCarouselEl = document.getElementById("carouselMaps");
+            if (myCarouselEl) {
+                const myCarousel = new Carousel(myCarouselEl);
+                myCarousel.to(0);
+            }
+        }
+    }, [state]);
+
     const draw = (weatherMap: WeatherMap, frameCount: number, ratio: number) => {
         // console.log(ratio,weatherMap.ctx.canvas.height);
         weatherMap.ctx.clearRect(0, 0, weatherMap.ctx.canvas.width, weatherMap.ctx.canvas.height)
@@ -136,7 +146,7 @@ const Slides = () => {
                 data-te-carousel-slide>
 
                 {/* <!--Carousel indicators--> */}
-                {state === 3 && busy === 0 ?//state > 1 ?
+                {state > 1 ?//state > 1 ?
                     <div
                         className="absolute bottom-0 left-0 right-0 z-[2] mx-[15%] mb-4 flex list-none justify-center p-0"
                         data-te-carousel-indicators>
@@ -261,7 +271,7 @@ const Slides = () => {
                         </div>}
                 </div>
 
-                {state === 3 && busy === 0 ?
+                {state > 1 ?//=== 3 && busy === 0 ?
                     <>
                         {/* <!--Carousel controls - prev item--> */}
                         <button

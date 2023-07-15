@@ -30,8 +30,8 @@ const MyCharts = ({ data }: { data: DataType | undefined }) => {
                     {
                         label: 'Wind',
                         data: data?.wind,
-                        backgroundColor: 'rgba(255, 0, 0, 0.2)',
-                        borderColor: '#eedfcd',
+                        backgroundColor: 'rgba(101, 163, 13, 0.2)',
+                        borderColor: 'rgba(29, 78, 216, 0.6)',
                         borderWidth: 1,
                     },
                     {
@@ -68,8 +68,8 @@ const MyCharts = ({ data }: { data: DataType | undefined }) => {
                     {
                         label: 'Rain',
                         data: data?.rain,
-                        backgroundColor: 'rgba(255, 0, 0, 0.2)',
-                        borderColor: '#eedfcd',
+                        backgroundColor: 'rgba(101, 163, 13, 0.2)',
+                        borderColor: 'rgba(29, 78, 216, 0.6)',
                         borderWidth: 1,
                     },
                     {
@@ -106,8 +106,8 @@ const MyCharts = ({ data }: { data: DataType | undefined }) => {
                     {
                         label: 'Temperature',
                         data: data?.temp,
-                        backgroundColor: 'rgba(255, 0, 0, 0.2)',
-                        borderColor: '#eedfcd',
+                        backgroundColor: 'rgba(101, 163, 13, 0.2)',
+                        borderColor: 'rgba(29, 78, 216, 0.6)',
                         borderWidth: 1,
                     },
                     {

@@ -1,4 +1,5 @@
 import {
+  Carousel,
   Sidenav,
   Ripple,
   initTE
@@ -58,6 +59,9 @@ const Navbar = () => {
         __temp_img.pop();
       }
       setFrame(0);
+      // const myCarouselEl = document.getElementById("carouselMaps");
+      // const myCarousel = new Carousel(myCarouselEl);
+      // myCarousel.to(0);
       if (data.length === 0) {
         setState(0);
         get_data().then(data => {
