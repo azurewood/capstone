@@ -104,15 +104,15 @@ const MyCharts = ({ data }: { data: DataType | undefined }) => {
                 labels: __day,
                 datasets: [
                     {
-                        label: 'Temperature',
-                        data: data?.temp,
+                        label: 'UV',
+                        data: data?.uv,
                         backgroundColor: 'rgba(101, 163, 13, 0.2)',
                         borderColor: 'rgba(29, 78, 216, 0.6)',
                         borderWidth: 1,
                     },
                     {
-                        label: 'UV',
-                        data: data?.uv,
+                        label: 'Temperature',
+                        data: data?.temp,
                         borderColor: '#eedfcd',
                         backgroundColor: 'rgba(255, 0, 0, 0.2)',
                         borderWidth: 2,
