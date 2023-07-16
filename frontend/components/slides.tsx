@@ -206,12 +206,12 @@ const Slides = () => {
                                     <div className="absolute z-1 opacity-90 text-xs font-semibold text-indigo-600" style={{ left: (380 * ratio).toFixed(0) + "px", top: (550 * ratio).toFixed(0) + "px" }}>
                                         {(state == 2 || state == 4) ? "Processing.." : state < 0 ? "Error!" : ""}
                                     </div>
-                                    <div className="absolute z-1 opacity-80"
+                                    <div className="absolute z-1 opacity-80 text-xs"
                                         style={{ left: (380 * ratio).toFixed(0) + "px", top: (580 * ratio).toFixed(0) + "px" }}>
                                         <div className="w-3 h-3 shadow-[2px_2px_2px_1px_#404040] bg-neutral-700 inline-block"></div>
                                         <span>&nbsp;&nbsp;Rain</span>
                                     </div>
-                                    <div className="absolute z-1 opacity-80"
+                                    <div className="absolute z-1 opacity-80 text-xs"
                                         style={{ left: (380 * ratio).toFixed(0) + "px", top: (603 * ratio).toFixed(0) + "px" }}>
                                         <div className="w-3 h-3 shadow-[2px_2px_2px_1px_#00FFFF] inline-block" style={{ background: '#00FFFF' }}></div>
                                         <span>&nbsp;&nbsp;Snow</span>
