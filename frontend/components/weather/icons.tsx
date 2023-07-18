@@ -13,6 +13,71 @@ import { FaCloudShowersHeavy } from "react-icons/fa"
 import { PiSnowflakeThin, PiSnowflake, PiSnowflakeBold } from "react-icons/pi"
 
 
+function get_wc_string(wc: number | undefined) {
+    switch (wc) {
+        case 0:
+            return "Clear sky";
+        case 1:
+            return "Mainly clear";
+        case 2:
+            return "Partly cloudy";
+        case 3:
+            return "Overcast";
+        case 45:
+            return "Fog";
+        case 48:
+            return "Depositing rime fog";
+        case 51:
+            return "Drizzle: Light";
+        case 53:
+            return "Drizzle: moderate";
+        case 55:
+            return "Drizzle: dense intensity";
+        case 56:
+            return "Freezing Drizzle: Light";
+        case 57:
+            return "Freezing Drizzle: dense intensity";
+        case 61:
+            return "Rain: Slight";
+        case 63:
+            return "Rain: moderate";
+        case 65:
+            return "Rain: heavy intensity";
+        case 66:
+            return "Freezing Rain: Light";
+        case 67:
+            return "Freezing Rain: heavy intensity";
+        case 71:
+            return "Snow fall: Slight";
+        case 73:
+            return "Snow fall: moderate";
+        case 75:
+            return "Snow fall: heavy intensity";
+        case 77:
+            return "Snow grains";
+        case 80:
+            return "Rain showers: Slight";
+        case 81:
+            return "Rain showers: moderate";
+        case 82:
+            return "Rain showers: violent";
+        case 85:
+            return "Snow showers slight";
+        case 86:
+            return "Snow showers heavy";
+        case 95:
+            return "Thunderstorm: Slight or moderate";
+        case 96:
+            return "Thunderstorm with slight hail";
+        case 99:
+            return "Thunderstorm with heavy hail";
+        case 101:
+            return "";
+        default:
+            return "";
+
+    }
+}
 
 
 function WIcon({ wc, x, y, z }: { wc: number | undefined; x?: string | undefined; y?: string | undefined; z?: number | undefined }) {
@@ -92,3 +157,4 @@ function WIcon({ wc, x, y, z }: { wc: number | undefined; x?: string | undefined
 }
 
 export default WIcon;
+export { get_wc_string };

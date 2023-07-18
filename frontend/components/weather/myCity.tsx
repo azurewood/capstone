@@ -10,6 +10,7 @@ import { __date, __day } from "@/app/dataHub";
 // import the icons you need
 import { WiThermometer, WiStormWarning, WiRaindrop, WiSnowflakeCold, WiDaySunny } from 'react-icons/wi';
 import WIcon from "./icons";
+import { get_wc_string } from "./icons";
 
 
 const MyCity = ({ data }: { data: DataType | undefined }) => {
@@ -27,11 +28,11 @@ const MyCity = ({ data }: { data: DataType | undefined }) => {
             </div>
             <div>
                 {[0, 1, 2, 3, 4, 5, 6].map(a => <div key={"weather-day-" + a}>
-                    <div className="w-80 text-sm space-x-3 mb-px bg-slate-600 text-zinc-100">
+                    <div className="w-96 text-sm space-x-3 mb-px bg-slate-600 text-zinc-100">
 
                         <div className="grid grid-cols-3 justify-center items-center">
                             <span className="text-center">{__date[a]}</span>
-                            <span className="flex justify-center items-center text-base"><WIcon wc={(data?.wc[a])} /><em className="text-[8px]">{data?.wc[a]}</em></span>
+                            <span className="flex justify-center items-center text-base"><WIcon wc={(data?.wc[a])} /><em className="text-[8px]">{get_wc_string(data?.wc[a])}</em></span>
                             <span className="text-center">{__day[a]}</span>
                         </div>
                         <div className="grid grid-cols-5">

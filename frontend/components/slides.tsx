@@ -12,6 +12,7 @@ import WeatherMap from "./graphics/weatherMap";
 import dynamic from 'next/dynamic'
 import type { DataType } from "@/app/dataContext";
 import WIcon from "./weather/icons";
+import { get_wc_string } from "./weather/icons";
 const MyCity = dynamic(() => import("./weather/myCity"), { ssr: false });
 const MyCharts = dynamic(() => import("./weather/myCharts"), { ssr: false });
 
@@ -203,16 +204,18 @@ const Slides = () => {
                                 <div ref={ref} className="relative">
                                     <img src="map_nz.png" className="block w-full z-0" onContextMenu={handleContextMenu} />
                                     {busy > 0 ? <WIcon wc={101} x={(84 * ratio).toFixed(0)} y={(137 * ratio).toFixed(0)} z={1}></WIcon> : <></>}
-                                    <div className="absolute z-1 opacity-90 text-xs font-semibold text-indigo-600" style={{ left: (380 * ratio).toFixed(0) + "px", top: (550 * ratio).toFixed(0) + "px" }}>
-                                        {(state == 2 || state == 4) ? "Processing.." : state < 0 ? "Error!" : ""}
+                                    <div className="absolute z-1 opacity-90 text-xs font-semibold text-indigo-600" style={{ left: (374 * ratio).toFixed(0) + "px", top: (530 * ratio).toFixed(0) + "px" }}>
+                                        <div className="w-24 break-words">
+                                        {(state == 2 || state == 4) ? "Processing.." : state < 0 ? "Error!" : (cityData ? (cityData.wc[0] > cityData.wc[1] ? get_wc_string(cityData.wc[0]) : get_wc_string(cityData.wc[1])) : "")}
+                                        </div>
                                     </div>
                                     <div className="absolute z-1 opacity-80 text-xs"
-                                        style={{ left: (380 * ratio).toFixed(0) + "px", top: (580 * ratio).toFixed(0) + "px" }}>
+                                        style={{ left: (380 * ratio).toFixed(0) + "px", top: (590 * ratio).toFixed(0) + "px" }}>
                                         <div className="w-3 h-3 shadow-[2px_2px_2px_1px_#404040] bg-neutral-700 inline-block"></div>
                                         <span>&nbsp;&nbsp;Rain</span>
                                     </div>
                                     <div className="absolute z-1 opacity-80 text-xs"
-                                        style={{ left: (380 * ratio).toFixed(0) + "px", top: (603 * ratio).toFixed(0) + "px" }}>
+                                        style={{ left: (380 * ratio).toFixed(0) + "px", top: (613 * ratio).toFixed(0) + "px" }}>
                                         <div className="w-3 h-3 shadow-[2px_2px_2px_1px_#00FFFF] inline-block" style={{ background: '#00FFFF' }}></div>
                                         <span>&nbsp;&nbsp;Snow</span>
                                     </div>
