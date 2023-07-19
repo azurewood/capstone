@@ -1,0 +1,106 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "version": "1.0.3",
+        "title": "NZ Weather Web Service",
+        "description": "New Zealand Weather Application API by Jian Zhou <wood.azure@gmail.com>",
+        "license": {
+            "name": "MIT",
+            "url": "https://opensource.org/licenses/MIT"
+        }
+    },
+    "host": "nz-weather-api.onrender.com",
+    "basePath": "/",
+    "tags": [
+        {
+            "name": "NZ Weather Project",
+            "description": "API for New Zealand Weather Project"
+        }
+    ],
+    "schemes": [
+        "https"
+    ],
+    "consumes": [
+        "application/json"
+    ],
+    "produces": [
+        "application/json"
+    ],
+    "paths": {
+        "/api/areas": {
+            "get": {
+                "tags": [
+                    "Geograhpic Service, Areas/Regions"
+                ],
+                "summary": "Geograhpic Service for NZ regions",
+                "responses": {
+                    "200": {
+                        "description": "This service gets code for NZ regions/areas"
+                    }
+                }
+            }
+        },
+        "/api/weather/city/{city}": {
+            "get": {
+                "tags": [
+                    "Weather Service, city"
+                ],
+                "summary": "Weather Service for a city or cities around",
+                "parameters": [
+                    {
+                        "name": "city",
+                        "in": "path",
+                        "required": true,
+                        "description": "Name of a city to query"
+                    },
+                    {
+                        "name": "about",
+                        "in": "query",
+                        "type": "integer",
+                        "description": "Distance of Cities around in KM"
+                    },
+                    {
+                        "name": "now",
+                        "in": "query",
+                        "type": "integer",
+                        "description": "Whether to force the backend to fresh data"
+                    }
+
+                ],
+                "responses": {
+                    "200": {
+                        "description": "This service gets weather information for a city or cities around in NZ"
+                    }
+                }
+            }
+        },
+        "/api/weather/area/{area}": {
+            "get": {
+                "tags": [
+                    "Weather Service, Region/Area"
+                ],
+                "summary": "Weather Service for regions",
+                "parameters": [
+                    {
+                        "name": "area",
+                        "in": "path",
+                        "required": true,
+                        "description": "Code of an area to query"
+                    },
+                    {
+                        "name": "now",
+                        "in": "query",
+                        "type": "integer",
+                        "description": "Whether to force the backend to fresh data"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "This service get weather information for a region in NZ"
+                    }
+                }
+            }
+        }
+
+    }
+}

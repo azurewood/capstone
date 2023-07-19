@@ -16,6 +16,13 @@ export interface DataType { // __rst.push({ x: x, y: y, temp: v, wind: w, rain: 
   uv: number[],
 }
 
+export interface CityType {
+  area: string,
+  coordinates: string,
+  name: string,
+  _id: string,
+}
+
 export interface DataContextType {
   state: number,
   setState: Dispatch<SetStateAction<number>>,
@@ -29,6 +36,8 @@ export interface DataContextType {
   setFrame: Dispatch<SetStateAction<number>>,
   homeCity: string,
   setHomeCity: Dispatch<SetStateAction<string>>,
+  token: string,
+  setToken: Dispatch<SetStateAction<string>>,
 }
 
 const DataContext = createContext<DataContextType>({
@@ -44,6 +53,8 @@ const DataContext = createContext<DataContextType>({
   setFrame: () => 0,
   homeCity: "",
   setHomeCity: () => "",
+  token: "",
+  setToken: () => "",
 });
 
 const DataContextProvider = ({ children }: {
@@ -55,10 +66,11 @@ const DataContextProvider = ({ children }: {
   const [busy, setBusy] = useState<number>(0);
   const [frame, setFrame] = useState<number>(0);
   const [homeCity, setHomeCity] = useState<string>("");
+  const [token, setToken] = useState<string>("");
 
 
   return (
-    <DataContext.Provider value={{ state, setState, data, setData, cities, setCities, busy, setBusy, frame, setFrame, homeCity, setHomeCity }}>
+    <DataContext.Provider value={{ state, setState, data, setData, cities, setCities, busy, setBusy, frame, setFrame, homeCity, setHomeCity, token, setToken }}>
       {children}
     </DataContext.Provider>
   );

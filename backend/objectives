@@ -1,0 +1,11 @@
+MINI-PROJECT 3 - Project objectives
+
+1. 
+My first objective is to utilize the weather API and build a backend to cache data for it.
+2.
+Then I will improve the functionaility to facilite weather checking for New Zealand by incorperating with geographic data.
+3.
+The end goal is to present weather information for a region by just one click, such as Otago. To do so, I have to parse geographic data and oragnize it in backend database with API support. I will use online data from the United Nations. 
+
+After adding areas, distance and forced fresh queries, the backend is more like a full-fledged API now for NZ users.
+
