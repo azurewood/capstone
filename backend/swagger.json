@@ -1,7 +1,7 @@
 {
     "swagger": "2.0",
     "info": {
-        "version": "1.0.3",
+        "version": "1.1.0",
         "title": "NZ Weather Web Service",
         "description": "New Zealand Weather Application API by Jian Zhou <wood.azure@gmail.com>",
         "license": {
@@ -9,7 +9,7 @@
             "url": "https://opensource.org/licenses/MIT"
         }
     },
-    "host": "nz-weather-api.onrender.com",
+    "host": "weather-nz.onrender.com",
     "basePath": "/",
     "tags": [
         {
