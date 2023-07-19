@@ -202,7 +202,7 @@ const Slides = () => {
                              className="block w-full -z-30 absolute top-0 left-0 opacity-40"
                              alt="..." onContextMenu={handleContextMenu} /> */}
                                 <div ref={ref} className="relative">
-                                    <img src="map_nz.png" className="block w-full z-0" onContextMenu={handleContextMenu} />
+                                    <img src="/map_nz.png" className="block w-full z-0" onContextMenu={handleContextMenu} />
                                     {busy > 0 ? <WIcon wc={101} x={(84 * ratio).toFixed(0)} y={(137 * ratio).toFixed(0)} z={1}></WIcon> : <></>}
                                     <div className="absolute z-1 opacity-90 text-xs font-semibold text-indigo-600" style={{ left: (374 * ratio).toFixed(0) + "px", top: (530 * ratio).toFixed(0) + "px" }}>
                                         <div className="w-24 break-words">
@@ -234,7 +234,7 @@ const Slides = () => {
                                 className="relative float-left -mr-[100%] hidden w-full transition-transform duration-[600ms] ease-in-out motion-reduce:transition-none backface-hidden"
                                 data-te-carousel-item >
                                 <img
-                                    src="azure.png"
+                                    src="/azure.png"
                                     className="block w-full -z-10"
                                     alt="..." />
                                 <div className="absolute top-0 left-0 -z-0">
@@ -252,7 +252,7 @@ const Slides = () => {
                                 className="relative float-left -mr-[100%] hidden w-full transition-transform duration-[600ms] ease-in-out motion-reduce:transition-none backface-hidden"
                                 data-te-carousel-item >
                                 <img
-                                    src="azure.png"
+                                    src="/azure.png"
                                     className="block w-full"
                                     alt="..." />
                                 <div className="absolute top-0 left-0 -z-0">
@@ -275,7 +275,7 @@ const Slides = () => {
                                 src="azure.png"
                                 className="block w-full -z-30 absolute top-0 left-0 opacity-40"
                                 alt="..." onContextMenu={handleContextMenu} /> */}
-                            <img src="map_nz.png" className="block w-full z-0" onContextMenu={handleContextMenu} />
+                            <img src="/map_nz.png" className="block w-full z-0" onContextMenu={handleContextMenu} />
                             {/* <div
                                 className="absolute inset-x-[15%] bottom-5 hidden py-5 text-center text-white md:block">
                                 <h5 className="text-xl">First slide label</h5>
