@@ -24,7 +24,7 @@ const LoginUI = () => {
         // console.log(password,username)
 
         const xhr = new XMLHttpRequest();
-        const url = 'http://127.0.0.1:4000/login';
+        const url = 'https://weather-nz.onrender.com/login';
         xhr.open("POST", url);
 
         // request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');

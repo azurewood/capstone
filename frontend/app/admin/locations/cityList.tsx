@@ -47,7 +47,7 @@ const CityList = () => {
             setArea(e.target?.value);
             setMessage("");
             const xhr = new XMLHttpRequest();
-            const url = 'http://127.0.0.1:4000/api/cities/' + e.target?.value;
+            const url = 'https://weather-nz.onrender.com/api/cities/' + e.target?.value;
             // console.log(url);
             xhr.open("GET", url);
 
@@ -88,7 +88,7 @@ const CityList = () => {
     const handleDelLocation = (e: any, id: string) => {
         e.preventDefault();
         // const xhr = new XMLHttpRequest();
-        // const url = 'http://127.0.0.1:4000/api/build/city';
+        // const url = 'https://weather-nz.onrender.com/api/build/city';
         // xhr.open("DELETE", url);
 
         // xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
