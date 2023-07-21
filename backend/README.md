@@ -2,19 +2,23 @@
 </br></br></br>
 ![iod logo](https://x4w8f4y8.rocketcdn.me/wp-content/uploads/2020/05/iod_h_tp_white_c.png)
 </br></br></br>
-![iod_miniproject_3](https://i.ibb.co/Gx5cNRS/Screenshot-2023-05-03-at-11-12-47-PM.png)
+# Capstone Project
 </br></br></br>
 
 <div align="center">
 
-# *the BACKEND*
+*the BACKEND*
 
 </div>
 
 </br>
 
 ## Objective  
-Create a backend that does something useful with a chosen 3rd party API(s) and includes a database
+- My first objective is to utilize the weather API and build a backend to cache data for it.
+- Then I will improve the functionaility to facilite weather checking for New Zealand by incorperating with geographic data.
+- The end goal is to present weather information for a region by just one click, such as Otago. To do so, I have to parse geographic data and oragnize it in backend database with API support. I will use online data from the United Nations. 
+- After adding areas, distance and forced fresh queries, the backend is more like a full-fledged API now for NZ users.
+- Finally we got authentication methods added in controllers and routes for admin user login
 
 <br>
 
