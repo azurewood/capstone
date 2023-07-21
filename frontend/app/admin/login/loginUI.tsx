@@ -66,7 +66,7 @@ const LoginUI = () => {
                                 className="block rounded-lg bg-white shadow-lg dark:bg-neutral-800">
                                 <div className="g-0 lg:flex lg:flex-wrap">
                                     {/* <!-- Left column container--> */}
-                                    <div className="px-4 md:px-0 lg:w-6/12">
+                                    <div className="px-4 md:px-0 lg:w-12/12">
                                         <div className="md:mx-6 md:p-12">
                                             {/* <!--Logo--> */}
                                             <div className="text-center pt-5">
@@ -142,7 +142,7 @@ const LoginUI = () => {
                                     </div>
 
                                     {/* <!-- Right column container with background and description--> */}
-                                    <div
+                                    {/* <div
                                         className="flex backgroundImage items-center rounded-b-lg lg:w-6/12 lg:rounded-r-lg lg:rounded-bl-none">
                                         <div className="px-4 py-6 text-white md:mx-6 md:p-12">
                                             <h4 className="mb-6 text-xl font-semibold">
@@ -152,7 +152,7 @@ const LoginUI = () => {
                                                 Lorem ipsum.
                                             </p>
                                         </div>
-                                    </div>
+                                    </div> */}
                                 </div>
                             </div>
                         </div>

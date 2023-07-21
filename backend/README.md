@@ -15,7 +15,7 @@
 
 ## Objective  
 - My first objective is to utilize the weather API and build a backend to cache data for it.
-- Then I will improve the functionaility to facilite weather checking for New Zealand by incorperating with geographic data.
+- Then I will improve the functionality to facilitate weather checking for New Zealand by incorporating.
 - The end goal is to present weather information for a region by just one click, such as Otago. To do so, I have to parse geographic data and oragnize it in backend database with API support. I will use online data from the United Nations. 
 - After adding areas, distance and forced fresh queries, the backend is more like a full-fledged API now for NZ users.
 - Finally we got authentication methods added in controllers and routes for admin user login
