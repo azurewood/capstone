@@ -95,12 +95,12 @@ flowchart TD
 - For example, the current state could be **Connecting**, **Fetching**, **Preprocessing**, **Done**, **Processing** or none of those.
 - Busy indicators are used interally to toggle on/off UI elements, such as the navigation arrow buttons on the map, and the small white boxes on the bottom.
 
-## Philosophy
+## Conceptual Ideas
 - Normally we don't care about user's data, especially in this case as we are the public information providers / presenters, but instead we focus on the user's interactions and experiences. Therefore we could cut down some meaningless expensives procedures. For example, why do people have to create an account for the public information services? They most probably don't even want to because of privacy reasons, and we don't have to collect their personal information.   
 - Interally, in our App, we also practically minimised network traffic and data persistence. They are expensive and can be slow. Meanwhile, we maximised data and components sharing with React/Next JS, which runs in memory. They are cheap and fast. In addtion, some crucial user data is saved in local storage. 
 - Overall, we better the user experience by making our App just like a desktop program as much as possible.  
 
 ## Design Patterns
-- We share key elements, typically data and functions that can be commonly used by React in frontend and shared by components / page routers. For instance, weather collection of cities, App states, busy indicators, user data, authentication token, and such.
+- The philosophy above is embodied in our design patterns as well. We share key elements, typically data and functions that can be commonly used by React in frontend and shared by components / page routers. For instance, weather collection of cities, App states, busy indicators, user data, authentication token, and such.
 - For the sake of precluding performance issue, html canvas is seperated from React in a way that they don't interfer each other. This is to avoid breakdown when heavy computation is undergoing. However, we use promises to communicate between the two layers, namly the graphics and web elements. 
 - React JS has a limit when it comes to data sharing. Those limits are often embodied as timely references, but they are not noticable if heavy computation is avoided or uninterfered.
