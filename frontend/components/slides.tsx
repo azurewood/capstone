@@ -33,13 +33,16 @@ const Slides = () => {
             setHomeCity("Wellington");
 
         newObject = window.localStorage.getItem("cities");
+        let cityNames:string[]=[];
         if (newObject) {
-            setCities(JSON.parse(newObject));
+            //setCities(JSON.parse(newObject));
             // console.log(JSON.parse(newObject));
+            cityNames=JSON.parse(newObject).map((a:DataType)=>a.city);
         }
+        // console.log(cityNames);
 
-
-        setFrame(0);
+        const myCities: DataType[] = [];
+        // setFrame(0);
         if (data.length === 0) {
             setState(0);
             get_data().then(data => {
@@ -47,11 +50,15 @@ const Slides = () => {
                 // setData(data);
                 setData(data.map(a => {
                     const b = { ...a };
+                    if(b.city in cityNames)
+                        myCities.push({ area: b.area, city: b.city, wc: [...b.wc], x: b.x, y: b.y, temp: [...b.temp], wind: [...b.wind], rain: [...b.rain], snow: [...b.snow], uv: [...b.uv] })
+
                     if (b.city === homeCity)
                         setCityData({ area: b.area, city: b.city, wc: [...b.wc], x: b.x, y: b.y, temp: [...b.temp], wind: [...b.wind], rain: [...b.rain], snow: [...b.snow], uv: [...b.uv] });
                     // console.log(b.city);
                     return { area: b.area, city: b.city, wc: [...b.wc], x: b.x, y: b.y, temp: [...b.temp], wind: [...b.wind], rain: [...b.rain], snow: [...b.snow], uv: [...b.uv] }
                 }));
+                setCities(myCities);
             }).catch(err => {
                 console.log("error:", err.message);
                 setState(-2);
