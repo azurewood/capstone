@@ -50,7 +50,8 @@ const Slides = () => {
                 // setData(data);
                 setData(data.map(a => {
                     const b = { ...a };
-                    if(b.city in cityNames)
+                    // console.log(b.city, cityNames);
+                    if(cityNames.includes(b.city))
                         myCities.push({ area: b.area, city: b.city, wc: [...b.wc], x: b.x, y: b.y, temp: [...b.temp], wind: [...b.wind], rain: [...b.rain], snow: [...b.snow], uv: [...b.uv] })
 
                     if (b.city === homeCity)
@@ -58,12 +59,13 @@ const Slides = () => {
                     // console.log(b.city);
                     return { area: b.area, city: b.city, wc: [...b.wc], x: b.x, y: b.y, temp: [...b.temp], wind: [...b.wind], rain: [...b.rain], snow: [...b.snow], uv: [...b.uv] }
                 }));
-                setCities(myCities);
+                // console.log(myCities);
             }).catch(err => {
                 console.log("error:", err.message);
                 setState(-2);
             }).finally(() => {
                 // console.log("end");
+                setCities(myCities);
                 setState(2);
                 setBusy(1);
             });
