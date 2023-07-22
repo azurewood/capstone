@@ -32,7 +32,7 @@ let __temp_img: any = [];
 const fetch_data = function (area: string) {
 
     return new Promise((resolve, reject) => {
-        const url = `https://nz-weather-api.onrender.com/api/weather/area/${area}?now=0`;
+        const url = process.env.BACKEND+`api/weather/area/${area}?now=0`;
         //const url='https://goweather.herokuapp.com/weather/Sydney';
         // fetch(url,{
         //         //mode: 'no-cors',
