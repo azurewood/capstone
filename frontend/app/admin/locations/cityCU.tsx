@@ -48,7 +48,7 @@ const CityCU = ({id, name, area, coordinates, x, y }: {id?:string, name?: string
     const handleSubmit = (e: any) => {
         e.preventDefault();
         const xhr = new XMLHttpRequest();
-        const url = 'https://weather-nz.onrender.com/api/build/city';
+        const url = process.env.BACKEND+'api/build/city';
         xhr.open(name === "" ? "POST" : "PUT", url);
 
         xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");

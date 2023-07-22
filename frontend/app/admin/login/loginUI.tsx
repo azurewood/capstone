@@ -24,9 +24,10 @@ const LoginUI = () => {
         // console.log(password,username)
 
         const xhr = new XMLHttpRequest();
-        const url = 'https://weather-nz.onrender.com/login';
+        const url = process.env.BACKEND+'login';
         xhr.open("POST", url);
 
+        // console.log(process.env.BACKEND);
         // request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
         // request.setRequestHeader('Authorization', 'Basic ' + authorizationBasic);
         // request.setRequestHeader('Accept', 'application/json');
