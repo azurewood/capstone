@@ -89,6 +89,39 @@ flowchart TD
     H -->K[delete locations]
 ```
 
+## App States Management
+```mermaid
+---
+title: App States
+---
+stateDiagram
+    [*] --> Connecting
+    Connecting --> Fetching
+    Fetching --> Preprocessing
+    Preprocessing --> Done
+    Done --> Processing
+    Processing --> Done
+```
+
+## Data Pipeline
+```mermaid
+---
+title: Data Pipeline
+---
+sequenceDiagram
+    
+    ImageBuffer-)HTML Canvas: putImageData()
+    Graphics-)HTML Canvas: putImageData()
+    ImageBuffer-)Graphics: getImageData() 
+    Graphics-->>DataHub: 
+    DataHub-)React UI:Promises 
+    React UI-)Backend:HTTP GET/POST/DELETE/PUT
+    DataHub-)Backend: HTTP GET
+    Backend-)Database: CRUD
+    Backend-)Third Party API: HTTP GET
+```
+
+
 ## Frontend State Management
 - By managing App states, we have better controls over how the application behaves.
 - Hence, we better the user experience by promting timely corresponding messages. 
@@ -104,3 +137,12 @@ flowchart TD
 - The philosophy above is embodied in our design patterns as well. We share key elements, typically data and functions that can be commonly used by React in frontend and shared by components / page routers. For instance, weather collection of cities, App states, busy indicators, user data, authentication token, and such.
 - For the sake of precluding performance issue, html canvas is seperated from React in a way that they don't interfer each other. This is to avoid breakdown when heavy computation is undergoing. However, we use promises to communicate between the two layers, namly the graphics and web elements. 
 - React JS has a limit when it comes to data sharing. Those limits are often embodied as timely references, but they are not noticable if heavy computation is avoided or uninterfered.
+
+## Stakeholders
+- The public
+
+## DevOps Strategic Alignment
+- Fast development
+- Running on low cost
+- High efficiency
+- Responsive design / fast speed
