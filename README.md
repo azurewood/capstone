@@ -114,6 +114,7 @@ sequenceDiagram
     Graphics-)HTML Canvas: putImageData()
     ImageBuffer-)Graphics: getImageData() 
     Graphics-->>DataHub: 
+    Graphics-->>React UI:Promises
     DataHub-)React UI:Promises 
     React UI-)Backend:HTTP GET/POST/DELETE/PUT
     DataHub-)Backend: HTTP GET
